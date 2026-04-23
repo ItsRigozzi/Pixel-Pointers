@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bshlfg37jpxia"]
+
+[ext_resource type="Script" uid="uid://cwfdmp6d7pvl0" path="res://puerta.gd" id="1_8gvf5"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="2_1h0p7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufeg8"]
+size = Vector2(99, 25)
+
+[node name="Puerta" type="Area2D" unique_id=72455224]
+script = ExtResource("1_8gvf5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=843295426]
+position = Vector2(44.5, -2.5)
+shape = SubResource("RectangleShape2D_ufeg8")
+
+[node name="AvisoFlotante" parent="." unique_id=971796311 instance=ExtResource("2_1h0p7")]
+position = Vector2(78, -52.5)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://7q04ilme1drr"]
+
+[ext_resource type="Script" uid="uid://bdnbwaahw02ek" path="res://casa_interior.gd" id="1_sf5ae"]
+[ext_resource type="Texture2D" uid="uid://yu66tg5dpnr0" path="res://casa_interior.png" id="2_bsodu"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="3_dagbv"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_1wnxo"]
+[ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_nhtop"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wm0j4"]
+a = Vector2(509, -206)
+b = Vector2(505, -285)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_xakeo"]
+a = Vector2(-141, 95)
+b = Vector2(-2, 95)
+
+[node name="casa_interior" type="Node2D" unique_id=1467700433]
+script = ExtResource("1_sf5ae")
+
+[node name="fondo_casa" type="Sprite2D" parent="." unique_id=506096838]
+texture = ExtResource("2_bsodu")
+
+[node name="paredes" type="StaticBody2D" parent="." unique_id=931569135]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="paredes" unique_id=1308267586]
+build_mode = 1
+polygon = PackedVector2Array(-256, 413, -254, 363, -493, 365, -495, 335, -493, 316, -468, 314, -440, 316, -419, 305, -412, 280, -406, 252, -397, 211, -404, 186, -429, 149, -454, 145, -485, 145, -495, 141, -495, -187, -496, -226, -137, -228, -132, -242, -130, -267, -46, -270, -45, -228, -21, -225, 44, -226, 50, -246, 53, -269, 403, -267, 417, -239, 505, -280, 470, -334, -512, -333, -509, 416, -393, 414)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="paredes" unique_id=242309300]
+build_mode = 1
+polygon = PackedVector2Array(-114, 415, -113, 364, 507, 361, 509, -102, 416, -104, 415, -156, 512, -206, 514, -102, 514, 419)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paredes" unique_id=1747572434]
+shape = SubResource("SegmentShape2D_wm0j4")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="paredes" unique_id=1067245956]
+position = Vector2(-111, 289)
+shape = SubResource("SegmentShape2D_xakeo")
+
+[node name="aparicion" type="Marker2D" parent="." unique_id=980698612]
+position = Vector2(-185, 318)
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("3_dagbv")]
+position = Vector2(-184, 317)
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=1983440902]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("4_1wnxo")]
+visible = false
+
+[node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_nhtop")]
+position = Vector2(-224, 366)

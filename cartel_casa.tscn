@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bhesyjll1qg22"]
+
+[ext_resource type="Script" uid="uid://vhmje7jsv8m2" path="res://cartel_casa.gd" id="1_6m464"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="2_56glu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56glu"]
+size = Vector2(123, 31)
+
+[node name="CartelCasa" type="Area2D" unique_id=1529642104]
+script = ExtResource("1_6m464")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=612885053]
+position = Vector2(49, 7)
+shape = SubResource("RectangleShape2D_56glu")
+
+[node name="AvisoFlotante" parent="." unique_id=971796311 instance=ExtResource("2_56glu")]
+position = Vector2(90, -53)

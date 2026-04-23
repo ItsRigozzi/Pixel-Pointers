@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bujc5kny6y3f1"]
+
+[ext_resource type="Script" uid="uid://dwxyisx6bgiv8" path="res://menu_principal.gd" id="1_gmcsc"]
+[ext_resource type="Texture2D" uid="uid://hmc0oy17ox41" path="res://main_menu.png" id="2_gmcsc"]
+
+[node name="MenuPrincipal" type="Control" unique_id=316449699]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_right = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gmcsc")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=77902269]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gmcsc")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BotonIniciar" type="Button" parent="." unique_id=560591208]
+modulate = Color(9.7895565, 9.7895565, 9.7895565, 0.3882353)
+layout_mode = 0
+offset_left = 404.0
+offset_top = 248.0
+offset_right = 750.0
+offset_bottom = 313.0
+
+[node name="BotonConfig" type="Button" parent="." unique_id=136291823]
+modulate = Color(9.7895565, 9.7895565, 9.7895565, 0.3882353)
+layout_mode = 0
+offset_left = 404.0
+offset_top = 332.0
+offset_right = 748.0
+offset_bottom = 393.0
+
+[node name="BotonComoJugar" type="Button" parent="." unique_id=1070060484]
+modulate = Color(9.79, 9.79, 9.79, 0.388)
+layout_mode = 0
+offset_left = 405.0
+offset_top = 411.0
+offset_right = 749.0
+offset_bottom = 472.0
+
+[connection signal="pressed" from="BotonIniciar" to="." method="_on_boton_iniciar_pressed"]

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ck7b1rgrnd84"]
+
+[node name="AvisoFlotante" type="Node2D" unique_id=971796311]
+z_index = 10
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=288883230]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 34.0
+offset_bottom = 34.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=1486757813]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 34.0
+offset_bottom = 34.0
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1

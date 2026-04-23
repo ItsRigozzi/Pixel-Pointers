@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bg7e3srodwpre"]
+
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="1_8md0o"]
+[ext_resource type="Texture2D" uid="uid://cdnlyqcrl6v8b" path="res://pueblo_base.png" id="1_oci33"]
+[ext_resource type="Script" uid="uid://w46mba16prdk" path="res://pueblo_base.gd" id="1_soj3t"]
+[ext_resource type="PackedScene" uid="uid://bhesyjll1qg22" path="res://cartel_casa.tscn" id="3_uehib"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_soj3t"]
+[ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_bge1g"]
+
+[node name="pueblo_base" type="Node2D" unique_id=536373215]
+script = ExtResource("1_soj3t")
+
+[node name="fondo_pueblo" type="Sprite2D" parent="." unique_id=1882139309]
+texture = ExtResource("1_oci33")
+
+[node name="Jugador" parent="fondo_pueblo" unique_id=1748918919 instance=ExtResource("1_8md0o")]
+
+[node name="colisiones_pueblo" type="StaticBody2D" parent="." unique_id=1554936375]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=1483114127]
+build_mode = 1
+polygon = PackedVector2Array(-1410, 382, -1351, 366, -1238, 357, -1082, 343, -963, 349, -835, 349, -776, 360, -755, 407, -761, 466, -761, 520, -759, 538, -702, 542, -648, 544, -589, 546, -585, 501, -593, 466, -595, 419, -595, 380, -564, 355, -546, 355, -533, 378, -533, 405, -541, 446, -543, 466, -515, 468, -482, 464, -414, 462, -365, 462, -340, 460, -330, 413, -322, 390, -318, 355, -299, 329, -227, 310, -176, 304, -106, 304, -69, 306, -42, 333, -40, 384, -49, 456, -49, 499, -49, 555, -7, 532, 48, 526, 159, 530, 266, 524, 354, 522, 451, 520, 508, 518, 601, 516, 695, 510, 741, 509, 812, 507, 849, 507, 856, 454, 858, 409, 852, 349, 872, 327, 888, 306, 925, 300, 989, 300, 1055, 300, 1119, 302, 1162, 304, 1223, 310, 1244, 310, 1244, 255, 1242, 228, 1203, 193, 1209, 173, 1312, 288, 1303, 433, 1248, 551, 1133, 682, -1120, 705)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=1558608626]
+build_mode = 1
+polygon = PackedVector2Array(-1411, 199, -1362, 216, -1321, 216, -1268, 208, -1231, 179, -1200, 140, -1161, 125, -1107, 125, -1038, 115, -992, 107, -960, 92, -941, 37, -801, 35, -703, 35, -606, 35, -547, 37, -528, 54, -510, 39, -512, 10, -518, -18, -518, -53, -506, -84, -501, -117, -501, -136, -495, -166, -460, -152, -444, -148, -407, -148, -384, -150, -358, -164, -335, -181, -333, -209, -315, -216, -290, -216, -259, -238, -267, 127, -230, 125, -236, -279, -220, -324, -195, -329, -105, -318, -54, -316, 31, -318, 92, -318, 142, -318, 191, -318, 257, -318, 298, -316, 263, -283, 259, -232, 269, -209, 294, -232, 314, -269, 378, -417, -1192, -505)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=2144183419]
+build_mode = 1
+polygon = PackedVector2Array(590, 137, 591, 208, 295, 214, 302, -283, 1224, -287, 1214, -224, 1212, 214, 886, 206, 890, 173, 773, 172, 776, 134, 1171, 134, 1183, -240, 329, -230, 333, 140)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=661091985]
+build_mode = 1
+polygon = PackedVector2Array(526, 36, 601, 36, 602, 3, 706, 3, 706, 39, 877, 37, 879, 11, 880, -7, 888, -38, 889, -70, 896, -87, 901, -108, 904, -147, 901, -193, 898, -228, 901, -270, 703, -452, 503, -260, 500, -190, 503, -172, 500, -141, 503, -120, 503, -94, 516, -71, 516, -52, 518, 2)
+
+[node name="CartelCasa" parent="colisiones_pueblo" unique_id=1529642104 instance=ExtResource("3_uehib")]
+position = Vector2(772, 187)
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=751310710]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("4_soj3t")]
+visible = false
+
+[node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_bge1g")]
+position = Vector2(615, 20)

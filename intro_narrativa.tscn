@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bga8jdgpa5do2"]
+
+[ext_resource type="Script" uid="uid://dns0efvyutp16" path="res://intro_narrativa.gd" id="1_24r65"]
+
+[node name="IntroNarrativa" type="Control" unique_id=723308766]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_24r65")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=471739079]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=1323276240]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -485.0
+offset_top = -11.5
+offset_right = 485.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Bienvenido al semestre. Antes de comenzar tus tutorías de programación, dirígete a tu residencia para organizar tus apuntes."
