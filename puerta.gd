@@ -1,20 +1,20 @@
 extends Area2D
 
+# Esta línea es la magia: crea la opción en el Inspector pero en formato texto seguro
+@export_file("*.tscn") var escena_destino: String 
+
 var jugador_cerca = false
 
 func _ready():
-	# Esto se ejecuta UN segundo después de darle a Play
 	$AvisoFlotante.hide()
 	
 func _process(_delta):
 	if jugador_cerca and Input.is_action_just_pressed("interactuar"):
-		var escena_actual = get_tree().current_scene.name
-		
-		# Solución 2: Verificamos los nombres de escena (asegúrate de que coincidan)
-		if escena_actual == "pueblo_principal" or escena_actual == "pueblo_base":
-			get_tree().change_scene_to_file("res://casa_limpia.tscn")
+		# Solo cambia de escena si le pusiste una ruta en el Inspector
+		if escena_destino != "":
+			get_tree().change_scene_to_file(escena_destino)
 		else:
-			get_tree().change_scene_to_file("res://pueblo_principal.tscn")
+			print("Falta poner la escena destino en el Inspector!")
 
 func _on_body_entered(body):
 	if body.name == "Jugador":

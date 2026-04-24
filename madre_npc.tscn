@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bx46bpru4tqpa"]
+
+[ext_resource type="Texture2D" uid="uid://n3we0lgqesw2" path="res://madre_izquierda.png" id="1_1xnwm"]
+[ext_resource type="Script" uid="uid://dubvml0xr6ftq" path="res://madre_npc.gd" id="1_doaql"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="3_8f7ad"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xnwm"]
+size = Vector2(75, 119)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xnwm"]
+radius = 67.11929
+
+[node name="madre_npc" type="StaticBody2D" unique_id=720412723]
+script = ExtResource("1_doaql")
+
+[node name="SpriteVisual" type="Sprite2D" parent="." unique_id=1366964197]
+modulate = Color(1, 1, 0.9607843, 1)
+position = Vector2(6, -2)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_1xnwm")
+offset = Vector2(0, -45)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=503448675]
+position = Vector2(-1.5, -45.5)
+shape = SubResource("RectangleShape2D_1xnwm")
+
+[node name="AreaSensor" type="Area2D" parent="." unique_id=411688397]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaSensor" unique_id=930329415]
+position = Vector2(-1, -46)
+shape = SubResource("CircleShape2D_1xnwm")
+
+[node name="AvisoFlotante" parent="." unique_id=971796311 instance=ExtResource("3_8f7ad")]
+position = Vector2(44, -138)
+
+[connection signal="body_entered" from="AreaSensor" to="." method="_on_area_sensor_body_entered"]
+[connection signal="body_exited" from="AreaSensor" to="." method="_on_area_sensor_body_exited"]

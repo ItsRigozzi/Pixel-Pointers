@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bg7e3srodwpre"]
 
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="1_8md0o"]
-[ext_resource type="Texture2D" uid="uid://cdnlyqcrl6v8b" path="res://pueblo_base.png" id="1_oci33"]
-[ext_resource type="Script" uid="uid://w46mba16prdk" path="res://pueblo_base.gd" id="1_soj3t"]
+[ext_resource type="Texture2D" uid="uid://cdnlyqcrl6v8b" path="res://pueblo_principal.png" id="1_oci33"]
+[ext_resource type="Script" uid="uid://w46mba16prdk" path="res://pueblo_principal.gd" id="1_soj3t"]
 [ext_resource type="PackedScene" uid="uid://bhesyjll1qg22" path="res://cartel_casa.tscn" id="3_uehib"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_soj3t"]
 [ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_bge1g"]
@@ -43,3 +43,4 @@ visible = false
 
 [node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_bge1g")]
 position = Vector2(615, 20)
+escena_destino = "uid://7q04ilme1drr"

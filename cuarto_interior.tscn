@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://jpi6h2v13ec8"]
+
+[ext_resource type="Script" uid="uid://xb5rtvpqqbwf" path="res://cuarto_interior.gd" id="1_ap4ai"]
+[ext_resource type="Texture2D" uid="uid://gokcmbr6hb52" path="res://cuarto.png" id="1_ktfua"]
+[ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="2_q3rxa"]
+
+[node name="cuarto_interior" type="Node2D" unique_id=1763341251]
+z_index = -1
+y_sort_enabled = true
+position = Vector2(2, -2)
+script = ExtResource("1_ap4ai")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1804959672]
+texture = ExtResource("1_ktfua")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=347258719]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2122462060]
+build_mode = 1
+polygon = PackedVector2Array(320, -106, 287, -96, 288, -63, 487, -59, 485, 384, -471, 384, -468, -160, -434, -154, -405, -149, -386, -152, -381, -204, -199, -199, -198, -270, -32, -265, -30, -207, 236, -202, 234, -234, 322, -238)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1112119057]
+build_mode = 1
+polygon = PackedVector2Array(-405, 137, -401, 280, -292, 285, -287, 103, -410, 98)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=639298620]
+build_mode = 1
+polygon = PackedVector2Array(-469, 287, -443, 287, -443, 101, -474, 97)
+
+[node name="Puerta" parent="StaticBody2D" unique_id=72455224 instance=ExtResource("2_q3rxa")]
+position = Vector2(223, -142)
+escena_destino = "uid://7q04ilme1drr"

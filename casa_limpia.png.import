@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdnlyqcrl6v8b"
-path="res://.godot/imported/pueblo_base.png-e71d03a8f152c6081fe513a1acebfaf3.ctex"
+uid="uid://bqsghcpsrahny"
+path="res://.godot/imported/casa_limpia.png-206eae88b2be541b76af70e87446aa66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pueblo_base.png"
-dest_files=["res://.godot/imported/pueblo_base.png-e71d03a8f152c6081fe513a1acebfaf3.ctex"]
+source_file="res://casa_limpia.png"
+dest_files=["res://.godot/imported/casa_limpia.png-206eae88b2be541b76af70e87446aa66.ctex"]
 
 [params]
 
