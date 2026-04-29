@@ -3,21 +3,31 @@
 [ext_resource type="Script" uid="uid://xb5rtvpqqbwf" path="res://cuarto_interior.gd" id="1_ap4ai"]
 [ext_resource type="Texture2D" uid="uid://gokcmbr6hb52" path="res://cuarto.png" id="1_ktfua"]
 [ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="2_q3rxa"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="4_ke61k"]
+[ext_resource type="Script" uid="uid://dokvsd0gl1ax1" path="res://pc_interactiva.gd" id="5_3eogx"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="6_6mtt0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mtt0"]
+size = Vector2(63.5, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ke61k"]
+size = Vector2(185, 140)
 
 [node name="cuarto_interior" type="Node2D" unique_id=1763341251]
-z_index = -1
 y_sort_enabled = true
 position = Vector2(2, -2)
 script = ExtResource("1_ap4ai")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1804959672]
+z_index = -1
+y_sort_enabled = true
 texture = ExtResource("1_ktfua")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=347258719]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2122462060]
 build_mode = 1
-polygon = PackedVector2Array(320, -106, 287, -96, 288, -63, 487, -59, 485, 384, -471, 384, -468, -160, -434, -154, -405, -149, -386, -152, -381, -204, -199, -199, -198, -270, -32, -265, -30, -207, 236, -202, 234, -234, 322, -238)
+polygon = PackedVector2Array(320, -106, 287, -96, 288, -63, 487, -59, 485, 384, -471, 384, -468, -160, -434, -154, -405, -149, -386, -152, -381, -204, -202, -206, -198, -270, -32, -265, -30, -207, 236, -202, 234, -234, 322, -238)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1112119057]
 build_mode = 1
@@ -27,6 +37,35 @@ polygon = PackedVector2Array(-405, 137, -401, 280, -292, 285, -287, 103, -410, 9
 build_mode = 1
 polygon = PackedVector2Array(-469, 287, -443, 287, -443, 101, -474, 97)
 
-[node name="Puerta" parent="StaticBody2D" unique_id=72455224 instance=ExtResource("2_q3rxa")]
+[node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("2_q3rxa")]
 position = Vector2(223, -142)
 escena_destino = "uid://7q04ilme1drr"
+nombre_punto_destino = "Pos_EscaleraAbajo"
+
+[node name="CollisionShape2D" parent="Puerta" index="0" unique_id=843295426]
+position = Vector2(50.75, -13)
+shape = SubResource("RectangleShape2D_6mtt0")
+
+[node name="AvisoFlotante" parent="Puerta" index="1" unique_id=971796311]
+position = Vector2(91, -58)
+
+[node name="Pos_EscaleraArriba" type="Marker2D" parent="." unique_id=1404447401]
+position = Vector2(249, -138)
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("4_ke61k")]
+position = Vector2(248, -138)
+
+[node name="PC_Interactiva" type="Area2D" parent="." unique_id=1320260938]
+script = ExtResource("5_3eogx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PC_Interactiva" unique_id=2040068154]
+position = Vector2(-294, -229)
+shape = SubResource("RectangleShape2D_ke61k")
+
+[node name="AvisoFlotante" parent="PC_Interactiva" unique_id=40546292 instance=ExtResource("6_6mtt0")]
+position = Vector2(-207, -231)
+
+[connection signal="body_entered" from="PC_Interactiva" to="PC_Interactiva" method="_on_body_entered"]
+[connection signal="body_exited" from="PC_Interactiva" to="PC_Interactiva" method="_on_body_exited"]
+
+[editable path="Puerta"]

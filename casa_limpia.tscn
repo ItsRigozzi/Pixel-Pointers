@@ -15,6 +15,9 @@ b = Vector2(504, -295)
 a = Vector2(-141, 95)
 b = Vector2(-2, 95)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sf5ae"]
+size = Vector2(75, 102)
+
 [node name="casa_limpia" type="Node2D" unique_id=1467700433]
 y_sort_enabled = true
 script = ExtResource("1_sf5ae")
@@ -72,6 +75,7 @@ visible = false
 [node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_nhtop")]
 position = Vector2(-224, 366)
 escena_destino = "uid://bg7e3srodwpre"
+nombre_punto_destino = "Pos_PuertaCasa"
 
 [node name="madre_npc" parent="." unique_id=720412723 instance=ExtResource("6_sf5ae")]
 position = Vector2(184, -4)
@@ -79,3 +83,16 @@ position = Vector2(184, -4)
 [node name="Puerta2" parent="." unique_id=1900940381 instance=ExtResource("5_nhtop")]
 position = Vector2(338, -177)
 escena_destino = "uid://jpi6h2v13ec8"
+nombre_punto_destino = "Pos_EscaleraArriba"
+
+[node name="CollisionShape2D" parent="Puerta2" index="0" unique_id=843295426]
+position = Vector2(42, -20)
+shape = SubResource("RectangleShape2D_sf5ae")
+
+[node name="AvisoFlotante" parent="Puerta2" index="1" unique_id=971796311]
+position = Vector2(86, -61)
+
+[node name="Pos_EscaleraAbajo" type="Marker2D" parent="." unique_id=1932878811]
+position = Vector2(357, -161)
+
+[editable path="Puerta2"]

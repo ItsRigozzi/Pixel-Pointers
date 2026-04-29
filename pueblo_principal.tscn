@@ -13,8 +13,6 @@ script = ExtResource("1_soj3t")
 [node name="fondo_pueblo" type="Sprite2D" parent="." unique_id=1882139309]
 texture = ExtResource("1_oci33")
 
-[node name="Jugador" parent="fondo_pueblo" unique_id=1748918919 instance=ExtResource("1_8md0o")]
-
 [node name="colisiones_pueblo" type="StaticBody2D" parent="." unique_id=1554936375]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=1483114127]
@@ -44,3 +42,9 @@ visible = false
 [node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_bge1g")]
 position = Vector2(615, 20)
 escena_destino = "uid://7q04ilme1drr"
+
+[node name="Pos_PuertaCasa" type="Marker2D" parent="." unique_id=1481581381]
+position = Vector2(647, 51)
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("1_8md0o")]
+position = Vector2(2, 0)
