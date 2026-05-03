@@ -6,18 +6,27 @@
 [ext_resource type="PackedScene" uid="uid://bhesyjll1qg22" path="res://cartel_casa.tscn" id="3_uehib"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_soj3t"]
 [ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_bge1g"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="7_0ca6c"]
+[ext_resource type="Script" uid="uid://dh1dngahm7fks" path="res://muro_examen.gd" id="7_7r7du"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7r7du"]
+size = Vector2(33.5, 195)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oooi0"]
+size = Vector2(38, 195)
 
 [node name="pueblo_base" type="Node2D" unique_id=536373215]
 script = ExtResource("1_soj3t")
 
 [node name="fondo_pueblo" type="Sprite2D" parent="." unique_id=1882139309]
+position = Vector2(0, -1)
 texture = ExtResource("1_oci33")
 
 [node name="colisiones_pueblo" type="StaticBody2D" parent="." unique_id=1554936375]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=1483114127]
 build_mode = 1
-polygon = PackedVector2Array(-1410, 382, -1351, 366, -1238, 357, -1082, 343, -963, 349, -835, 349, -776, 360, -755, 407, -761, 466, -761, 520, -759, 538, -702, 542, -648, 544, -589, 546, -585, 501, -593, 466, -595, 419, -595, 380, -564, 355, -546, 355, -533, 378, -533, 405, -541, 446, -543, 466, -515, 468, -482, 464, -414, 462, -365, 462, -340, 460, -330, 413, -322, 390, -318, 355, -299, 329, -227, 310, -176, 304, -106, 304, -69, 306, -42, 333, -40, 384, -49, 456, -49, 499, -49, 555, -7, 532, 48, 526, 159, 530, 266, 524, 354, 522, 451, 520, 508, 518, 601, 516, 695, 510, 741, 509, 812, 507, 849, 507, 856, 454, 858, 409, 852, 349, 872, 327, 888, 306, 925, 300, 989, 300, 1055, 300, 1119, 302, 1162, 304, 1223, 310, 1244, 310, 1244, 255, 1242, 228, 1203, 193, 1209, 173, 1312, 288, 1303, 433, 1248, 551, 1133, 682, -1120, 705)
+polygon = PackedVector2Array(-1410, 382, -1351, 366, -1238, 357, -1082, 343, -963, 349, -835, 349, -776, 360, -755, 407, -761, 466, -761, 520, -759, 538, -702, 542, -648, 544, -589, 546, -585, 501, -593, 466, -595, 419, -595, 380, -564, 355, -546, 355, -533, 378, -533, 405, -541, 446, -543, 466, -515, 468, -482, 464, -414, 462, -365, 462, -340, 460, -330, 413, -322, 390, -318, 355, -299, 329, -227, 310, -176, 304, -106, 304, -69, 306, -42, 333, -40, 384, -49, 456, -49, 499, -58, 538, -8, 494, 51, 493, 165, 500, 268, 498, 355, 507, 448, 499, 514, 499, 604, 502, 704, 503, 750, 490, 808, 485, 847, 491, 856, 454, 858, 409, 852, 349, 872, 327, 888, 306, 925, 300, 989, 300, 1055, 300, 1119, 302, 1162, 304, 1223, 310, 1244, 310, 1244, 255, 1242, 228, 1203, 193, 1209, 173, 1312, 288, 1303, 433, 1248, 551, 1133, 682, -1120, 705)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=1558608626]
 build_mode = 1
@@ -37,6 +46,7 @@ position = Vector2(772, 187)
 [node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=751310710]
 
 [node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("4_soj3t")]
+unique_name_in_owner = true
 visible = false
 
 [node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_bge1g")]
@@ -48,3 +58,23 @@ position = Vector2(647, 51)
 
 [node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("1_8md0o")]
 position = Vector2(2, 0)
+
+[node name="MuroExamen" type="StaticBody2D" parent="." unique_id=634034437]
+script = ExtResource("7_7r7du")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MuroExamen" unique_id=1492814663]
+position = Vector2(-1412, 290)
+shape = SubResource("RectangleShape2D_7r7du")
+
+[node name="SensorMuro" type="Area2D" parent="MuroExamen" unique_id=366553936]
+position = Vector2(-1327, 278)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MuroExamen/SensorMuro" unique_id=2144068957]
+position = Vector2(-80, 13)
+shape = SubResource("RectangleShape2D_oooi0")
+
+[node name="AvisoFlotante" parent="MuroExamen" unique_id=971796311 instance=ExtResource("7_0ca6c")]
+position = Vector2(-1386, 177)
+
+[connection signal="body_entered" from="MuroExamen/SensorMuro" to="MuroExamen" method="_on_sensor_muro_body_entered"]
+[connection signal="body_exited" from="MuroExamen/SensorMuro" to="MuroExamen" method="_on_sensor_muro_body_exited"]

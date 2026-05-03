@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="4_ke61k"]
 [ext_resource type="Script" uid="uid://dokvsd0gl1ax1" path="res://pc_interactiva.gd" id="5_3eogx"]
 [ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="6_6mtt0"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="7_cirvv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6mtt0"]
 size = Vector2(63.5, 100)
@@ -56,6 +57,7 @@ position = Vector2(249, -138)
 position = Vector2(248, -138)
 
 [node name="PC_Interactiva" type="Area2D" parent="." unique_id=1320260938]
+position = Vector2(2, 2)
 script = ExtResource("5_3eogx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PC_Interactiva" unique_id=2040068154]
@@ -64,6 +66,9 @@ shape = SubResource("RectangleShape2D_ke61k")
 
 [node name="AvisoFlotante" parent="PC_Interactiva" unique_id=40546292 instance=ExtResource("6_6mtt0")]
 position = Vector2(-207, -231)
+
+[node name="PantallaExamen" parent="." unique_id=1288475170 instance=ExtResource("7_cirvv")]
+unique_name_in_owner = true
 
 [connection signal="body_entered" from="PC_Interactiva" to="PC_Interactiva" method="_on_body_entered"]
 [connection signal="body_exited" from="PC_Interactiva" to="PC_Interactiva" method="_on_body_exited"]

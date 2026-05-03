@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://bc1vhfwj7m033"]
+
+[ext_resource type="Script" uid="uid://eune8h6hg78g" path="res://pantalla_examen.gd" id="1_6y2c1"]
+[ext_resource type="Texture2D" uid="uid://d07w5vikapods" path="res://pizarra.png" id="1_sx2nj"]
+[ext_resource type="Texture2D" uid="uid://b600unxt1t1y7" path="res://respuesta.png" id="2_hc1yc"]
+
+[node name="PantallaExamen" type="CanvasLayer" unique_id=1288475170]
+process_mode = 3
+script = ExtResource("1_6y2c1")
+
+[node name="FondoPregunta" type="NinePatchRect" parent="." unique_id=134592015]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -479.0
+offset_right = 314.5
+offset_bottom = 497.0
+grow_horizontal = 2
+texture = ExtResource("1_sx2nj")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="TextoPregunta" type="RichTextLabel" parent="FondoPregunta" unique_id=803301633]
+layout_mode = 0
+offset_left = 138.0
+offset_top = 108.0
+offset_right = 672.5
+offset_bottom = 405.0
+theme_override_colors/font_selected_color = Color(0.95686275, 0.8980392, 0.79607844, 1)
+autowrap_mode = 2
+
+[node name="BotonA" type="TextureButton" parent="." unique_id=941997030]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -192.0
+offset_right = 307.0
+offset_bottom = -72.0
+grow_vertical = 0
+texture_normal = ExtResource("2_hc1yc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextoA" type="Label" parent="BotonA" unique_id=1394096093]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 25.0
+offset_right = 240.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.3137255, 0.3372549, 0.39215687, 1)
+autowrap_mode = 2
+
+[node name="BotonB" type="TextureButton" parent="." unique_id=1263083874]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 387.0
+offset_top = -191.0
+offset_right = 646.0
+offset_bottom = -71.0
+grow_vertical = 0
+texture_normal = ExtResource("2_hc1yc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextoB" type="Label" parent="BotonB" unique_id=1133044148]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 25.0
+offset_right = 240.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.3137255, 0.3372549, 0.39215687, 1)
+autowrap_mode = 2
+
+[node name="BotonC" type="TextureButton" parent="." unique_id=2011302044]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 726.0
+offset_top = -194.0
+offset_right = 985.0
+offset_bottom = -74.0
+grow_vertical = 0
+texture_normal = ExtResource("2_hc1yc")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextoC" type="Label" parent="BotonC" unique_id=664414740]
+layout_mode = 0
+offset_left = 93.0
+offset_top = 25.0
+offset_right = 240.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.3137255, 0.3372549, 0.39215687, 1)
+autowrap_mode = 2
+
+[node name="MensajeFeedback" type="Label" parent="." unique_id=1179799974]
+offset_left = 485.0
+offset_top = 598.0
+offset_right = 525.0
+offset_bottom = 621.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+
+[connection signal="pressed" from="BotonA" to="." method="_on_boton_a_pressed"]
+[connection signal="pressed" from="BotonB" to="." method="_on_boton_b_pressed"]
+[connection signal="pressed" from="BotonC" to="." method="_on_boton_c_pressed"]

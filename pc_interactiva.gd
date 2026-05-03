@@ -8,8 +8,16 @@ func _ready():
 
 func _process(_delta):
 	if jugador_cerca and Input.is_action_just_pressed("interactuar"):
-		print("¡Has encendido la PC! Aquí cargaremos el cuestionario pronto.")
-		# Aquí luego pondremos el código para abrir la interfaz de preguntas
+		# Escondemos la letra E para que no estorbe
+		$AvisoFlotante.hide()
+		
+		# Buscamos la pantalla de examen mágica
+		var pantalla = get_node_or_null("%PantallaExamen")
+		
+		if pantalla:
+			pantalla.iniciar_examen()
+		else:
+			print("Error: No encontré la PantallaExamen")
 
 func _on_body_entered(body):
 	if body.name == "Jugador":
