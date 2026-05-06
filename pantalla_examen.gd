@@ -64,7 +64,7 @@ func _on_boton_b_pressed():
 	
 	# 2. Esperamos 2 segundos. 
 	# (Usamos 'true' al final porque aquí el juego SIGUE EN PAUSA)
-	await get_tree().create_timer(2.0, true).timeout
+	await get_tree().create_timer(4.0, true).timeout
 	
 	# 3. Borramos el texto para limpiar la pantalla
 	mensaje_feedback.text = ""
@@ -74,7 +74,7 @@ func _on_boton_c_pressed():
 	mensaje_feedback.text = "Incorrecto. No tiene relación con la memoria RAM total. ¡Piénsalo bien!"
 	
 	# 2. Esperamos 2 segundos
-	await get_tree().create_timer(2.0, true).timeout
+	await get_tree().create_timer(4.0, true).timeout
 	
 	# 3. Borramos el texto
 	mensaje_feedback.text = ""
