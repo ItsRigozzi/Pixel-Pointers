@@ -41,24 +41,25 @@ func intentar_hablar():
 
 func hablar_exito(direccion):
 	print("Hablando con éxito desde: ", direccion)
-	# Cambiar imagen
 	if direccion == "derecha": sprite_visual.texture = TEXTURA_DERECHA
 	elif direccion == "abajo": sprite_visual.texture = TEXTURA_ABAJO
 	elif direccion == "arriba": sprite_visual.texture = TEXTURA_ARRIBA
 	
-	# 1. Encontrar la Caja de Diálogo en la escena principal
+	# 1. Buscamos AMBAS interfaces en la escena
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
+	var pantalla_examen = get_tree().current_scene.get_node_or_null("CapaInterfaz/PantallaExamen") # Asegúrate de que la ruta sea correcta
 	
-	# 2. Si la encuentra, iniciamos el diálogo
-	if nodo_dialogo:
-		$AvisoFlotante.hide() # Ocultamos la E mientras habla
-		
-		# (Asumiendo que tu caja tiene una función como mostrar_texto(mensaje))
-		# Ajusta esta línea según cómo programaste tu CajaDialogo originalmente:
-		nodo_dialogo.mostrar_texto("Hijo, recuerda responder las 3 preguntas para tener la medalla y pasar al siguiente nivel.\nPD: Sube a tu cuarto y responde la primera pregunta.") 
-		
+	$AvisoFlotante.hide() # Ocultamos la E
+	
+	# 2. LÓGICA: ¿Usamos Diálogo normal o Examen?
+	if Global.pregunta_pc_resuelta == false:
+		# Aún no hace la PC: Diálogo normal
+		if nodo_dialogo:
+			nodo_dialogo.mostrar_texto("Hijo, recuerda responder las 3 preguntas para tener la medalla y pasar al siguiente nivel.\nPD: Sube a tu cuarto y responde la primera pregunta.") 
 	else:
-		print("ERROR: No se encontró la CajaDialogo en la escena.")
+		# Ya hizo la PC: ¡Abrimos la interfaz de examen!
+		if pantalla_examen:
+			pantalla_examen.iniciar_examen()
 func bloquear_interaccion():
 	print("No puedes hablarle desde ahí, la mesa está en medio.")
 

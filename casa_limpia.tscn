@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c0giy832fcqq7" path="res://casa_limpia.png" id="2_g2f7t"]
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="3_dagbv"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_1wnxo"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="5_bsodu"]
 [ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_nhtop"]
 [ext_resource type="PackedScene" uid="uid://bx46bpru4tqpa" path="res://madre_npc.tscn" id="6_sf5ae"]
 
@@ -76,6 +77,9 @@ anchor_right = 0.0
 offset_top = -728.0
 offset_bottom = -80.0
 grow_horizontal = 1
+
+[node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("5_bsodu")]
+visible = false
 
 [node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_nhtop")]
 position = Vector2(-280, 478)
