@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://7q04ilme1drr"]
 
 [ext_resource type="Script" uid="uid://bdnbwaahw02ek" path="res://casa_limpia.gd" id="1_sf5ae"]
-[ext_resource type="Texture2D" uid="uid://bqsghcpsrahny" path="res://casa_limpia.png" id="2_g2f7t"]
+[ext_resource type="Texture2D" uid="uid://c0giy832fcqq7" path="res://casa_limpia.png" id="2_g2f7t"]
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="3_dagbv"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_1wnxo"]
 [ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_nhtop"]
 [ext_resource type="PackedScene" uid="uid://bx46bpru4tqpa" path="res://madre_npc.tscn" id="6_sf5ae"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_wm0j4"]
-a = Vector2(511, -192)
-b = Vector2(504, -295)
+a = Vector2(509, -183)
+b = Vector2(499, -312)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_xakeo"]
-a = Vector2(-141, 95)
-b = Vector2(-2, 95)
+a = Vector2(-155, 97)
+b = Vector2(33, 95)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sf5ae"]
-size = Vector2(75, 102)
+size = Vector2(80.5, 130)
 
 [node name="casa_limpia" type="Node2D" unique_id=1467700433]
 y_sort_enabled = true
@@ -29,70 +29,82 @@ texture = ExtResource("2_g2f7t")
 
 [node name="paredes" type="StaticBody2D" parent="." unique_id=931569135]
 
-[node name="paredIzq" type="CollisionPolygon2D" parent="paredes" unique_id=1308267586]
-build_mode = 1
-polygon = PackedVector2Array(-256, 413, -254, 363, -493, 365, -495, 335, -493, 316, -468, 314, -440, 316, -419, 305, -412, 280, -406, 252, -397, 211, -404, 186, -429, 149, -454, 145, -485, 145, -495, 141, -495, -187, -496, -226, -137, -228, -132, -242, -130, -267, -46, -270, -45, -228, -21, -225, 44, -226, 50, -246, 53, -269, 403, -267, 417, -239, 505, -280, 470, -334, -512, -333, -509, 416, -393, 414)
-
-[node name="paredDer" type="CollisionPolygon2D" parent="paredes" unique_id=242309300]
-build_mode = 1
-polygon = PackedVector2Array(-114, 415, -113, 364, 507, 361, 509, -102, 416, -104, 415, -156, 512, -206, 514, -102, 514, 419)
-
 [node name="escalera" type="CollisionShape2D" parent="paredes" unique_id=1747572434]
-position = Vector2(-65, 38)
+position = Vector2(50, -22)
 shape = SubResource("SegmentShape2D_wm0j4")
 
 [node name="puerta" type="CollisionShape2D" parent="paredes" unique_id=1067245956]
-position = Vector2(-111, 289)
+position = Vector2(-178, 402)
 shape = SubResource("SegmentShape2D_xakeo")
 
 [node name="silla1" type="CollisionPolygon2D" parent="paredes" unique_id=1688518744]
-position = Vector2(3, -2)
+position = Vector2(-32, 10)
 polygon = PackedVector2Array(-141, 43, -111, 42, -115, 133, -142, 132)
 
 [node name="silla2" type="CollisionPolygon2D" parent="paredes" unique_id=1230524864]
-position = Vector2(2, -96)
+position = Vector2(-34, -115)
 polygon = PackedVector2Array(-141, 43, -111, 42, -109, 127, -140, 127)
 
 [node name="silla3" type="CollisionPolygon2D" parent="paredes" unique_id=1343418749]
-position = Vector2(341, -1)
+position = Vector2(406, 16)
 polygon = PackedVector2Array(-142, 33, -113, 33, -114, 132, -142, 132)
 
 [node name="mesa" type="CollisionPolygon2D" parent="paredes" unique_id=706473782]
-polygon = PackedVector2Array(-41, 94, -45, -93, 131, -89, 131, 95)
+position = Vector2(28, 39)
+polygon = PackedVector2Array(-88, 90, -88, -145, 146, -139, 153, 93)
+
+[node name="paredIzq" type="CollisionPolygon2D" parent="paredes" unique_id=2081880753]
+build_mode = 1
+polygon = PackedVector2Array(-330, 535, -330, 477, -637, 476, -639, 402, -602, 404, -570, 405, -553, 395, -531, 376, -527, 358, -529, 338, -525, 309, -520, 291, -520, 271, -521, 245, -529, 212, -571, 191, -602, 188, -627, 185, -640, 163, -641, -291, -170, -285, -170, -355, -69, -351, -69, -287, 85, -287, 76, -355, 522, -353, 536, -304, 658, -369, 561, -464, -665, -439, -678, 523)
+
+[node name="paredDer" type="CollisionPolygon2D" parent="paredes" unique_id=1198352152]
+build_mode = 1
+polygon = PackedVector2Array(-148, 533, -148, 469, 650, 469, 655, -131, 533, -134, 536, -208, 661, -276, 705, -249, 690, 532)
 
 [node name="aparicion" type="Marker2D" parent="." unique_id=980698612]
-position = Vector2(-185, 318)
+position = Vector2(-236, 452)
 
 [node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("3_dagbv")]
 y_sort_enabled = true
-position = Vector2(-184, 317)
+position = Vector2(-237, 447)
 
 [node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=1983440902]
 
 [node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("4_1wnxo")]
-visible = false
+anchors_preset = 2
+anchor_right = 0.0
+offset_top = -728.0
+offset_bottom = -80.0
+grow_horizontal = 1
 
 [node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_nhtop")]
-position = Vector2(-224, 366)
+position = Vector2(-280, 478)
 escena_destino = "uid://bg7e3srodwpre"
 nombre_punto_destino = "Pos_PuertaCasa"
 
+[node name="CollisionShape2D" parent="Puerta" index="0" unique_id=843295426]
+position = Vector2(42, 1.5)
+
+[node name="AvisoFlotante" parent="Puerta" index="1" unique_id=971796311]
+position = Vector2(133, -56)
+
 [node name="madre_npc" parent="." unique_id=720412723 instance=ExtResource("6_sf5ae")]
-position = Vector2(184, -4)
+position = Vector2(236, -2)
 
 [node name="Puerta2" parent="." unique_id=1900940381 instance=ExtResource("5_nhtop")]
-position = Vector2(338, -177)
+position = Vector2(458, -228)
 escena_destino = "uid://jpi6h2v13ec8"
 nombre_punto_destino = "Pos_EscaleraArriba"
 
 [node name="CollisionShape2D" parent="Puerta2" index="0" unique_id=843295426]
-position = Vector2(42, -20)
+position = Vector2(39.25, -15)
 shape = SubResource("RectangleShape2D_sf5ae")
 
 [node name="AvisoFlotante" parent="Puerta2" index="1" unique_id=971796311]
 position = Vector2(86, -61)
 
 [node name="Pos_EscaleraAbajo" type="Marker2D" parent="." unique_id=1932878811]
-position = Vector2(357, -161)
+position = Vector2(456, -211)
 
+[editable path="Puerta"]
 [editable path="Puerta2"]

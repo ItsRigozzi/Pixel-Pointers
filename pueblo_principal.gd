@@ -11,3 +11,6 @@ func _ready():
 			
 		# Limpia la memoria
 		Global.punto_aparicion = ""
+		
+	# NUEVO: Forzamos la cámara estática del mapa
+	$Camera2D.make_current()

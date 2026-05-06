@@ -1,12 +1,15 @@
 extends CanvasLayer
 
-# Conectamos todos los textos, incluyendo el nuevo MensajeFeedback
 @onready var texto_pregunta = $FondoPregunta/TextoPregunta
 @onready var texto_a = $BotonA/TextoA
 @onready var texto_b = $BotonB/TextoB
 @onready var texto_c = $BotonC/TextoC
-@onready var mensaje_feedback = $MensajeFeedback # NUEVO NODO
+@onready var mensaje_feedback = $MensajeFeedback
 
+# Las variables de tu cartel
+@onready var cartel_progreso = $CartelProgreso
+@onready var texto_progreso = $CartelProgreso/TextoProgreso
+@onready var numero_progreso = $CartelProgreso/NumeroProgreso
 func _ready():
 	hide()
 
@@ -18,30 +21,60 @@ func cargar_pregunta_prueba():
 
 func iniciar_examen():
 	cargar_pregunta_prueba() 
-	mensaje_feedback.text = "" # Limpiamos mensajes anteriores por si vuelve a jugar
+	mensaje_feedback.text = "" 
+	
+	# 2. Asegurarnos de que todo se vea bien al abrir la PC
+	$FondoPregunta.show()
+	$BotonA.show()
+	$BotonB.show()
+	$BotonC.show()
+	cartel_progreso.hide() # Escondemos el cartel por si acaso
+	
 	show()                   
 	get_tree().paused = true 
-
-func cerrar_examen():
-	hide()                    
-	get_tree().paused = false 
 
 # --- SEÑALES DE LOS BOTONES ---
 
 func _on_boton_a_pressed():
-	# RESPUESTA CORRECTA
-	mensaje_feedback.text = "¡Correcto! Sabes de punteros."
+	# 3. Escondemos la pregunta y los botones inmediatamente
+	$FondoPregunta.hide()
+	$BotonA.hide()
+	$BotonB.hide()
+	$BotonC.hide()
+	mensaje_feedback.hide()
 	
-	# Truco: Esperamos 1.5 segundos para que el jugador alcance a leer.
-	# El 'true' es un superpoder para que el temporizador funcione aunque el juego esté en pausa.
-	await get_tree().create_timer(1.5, true).timeout
+	# 4. ¡DESCONGELAMOS EL JUEGO AL INSTANTE! (El jugador ya puede caminar)
+	get_tree().paused = false
 	
-	cerrar_examen()
+	# 5. Mostramos tu mini-cartel en la esquina
+	cartel_progreso.show()
+	texto_progreso.text = "¡Correcto!\nSigue así."
+	numero_progreso.text = "1/3" 
+	
+	# 6. Temporizador: Esperamos 3 segundos reales 
+	await get_tree().create_timer(3.0).timeout
+	
+	# 7. Pasaron los 3 segundos, escondemos el cartel y cerramos la escena
+	cartel_progreso.hide()
+	hide()
 
 func _on_boton_b_pressed():
-	# RESPUESTA INCORRECTA
+	# 1. Mostramos el mensaje de error
 	mensaje_feedback.text = "Incorrecto. Un puntero no almacena el dato en sí. ¡Inténtalo de nuevo!"
+	
+	# 2. Esperamos 2 segundos. 
+	# (Usamos 'true' al final porque aquí el juego SIGUE EN PAUSA)
+	await get_tree().create_timer(2.0, true).timeout
+	
+	# 3. Borramos el texto para limpiar la pantalla
+	mensaje_feedback.text = ""
 
 func _on_boton_c_pressed():
-	# RESPUESTA INCORRECTA
+	# 1. Mostramos el mensaje de error
 	mensaje_feedback.text = "Incorrecto. No tiene relación con la memoria RAM total. ¡Piénsalo bien!"
+	
+	# 2. Esperamos 2 segundos
+	await get_tree().create_timer(2.0, true).timeout
+	
+	# 3. Borramos el texto
+	mensaje_feedback.text = ""

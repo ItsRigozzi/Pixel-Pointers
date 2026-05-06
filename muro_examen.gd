@@ -7,12 +7,11 @@ func _ready():
 
 func _process(_delta):
 	if jugador_cerca and Input.is_action_just_pressed("interactuar"):
-		
-		# USAMOS EL % PARA ENCONTRARLA AL INSTANTE
 		var caja_dialogo = get_node_or_null("%CajaDialogo")
 		
 		if caja_dialogo:
-			caja_dialogo.mostrar_texto("Paso bloqueado. ¡Debes ir a tu cuarto y aprobar el examen en la PC primero!")
+			# SOLO CAMBIAMOS ESTA LÍNEA:
+			caja_dialogo.mostrar_texto("Consigue la medalla de la zona para pasar al siguiente nivel.")
 		else:
 			print("Error: No encontré la CajaDialogo")
 			

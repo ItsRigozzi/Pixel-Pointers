@@ -55,7 +55,7 @@ func hablar_exito(direccion):
 		
 		# (Asumiendo que tu caja tiene una función como mostrar_texto(mensaje))
 		# Ajusta esta línea según cómo programaste tu CajaDialogo originalmente:
-		nodo_dialogo.mostrar_texto("¡Hola hijo! Ten cuidado al salir de casa.") 
+		nodo_dialogo.mostrar_texto("Hijo, recuerda responder las 3 preguntas para tener la medalla y pasar al siguiente nivel.\nPD: Sube a tu cuarto y responde la primera pregunta.") 
 		
 	else:
 		print("ERROR: No se encontró la CajaDialogo en la escena.")
