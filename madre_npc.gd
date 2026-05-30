@@ -13,7 +13,11 @@ var jugador_en_rango = false
 
 func _ready():
 	sprite_visual.texture = TEXTURA_IZQUIERDA
-	$AvisoFlotante.hide() # Ocultar al inicio
+	if has_node("AvisoFlotante"):
+		$AvisoFlotante.hide() # Ocultar al inicio
+	
+	# Conectamos la señal global para que escuche cuando termina un examen
+	Global.examen_aprobado.connect(_activar_dialogo_automatico)
 
 func _process(_delta):
 	# Si el jugador presiona interactuar y está en el área
@@ -22,7 +26,7 @@ func _process(_delta):
 
 func intentar_hablar():
 	# Buscar al jugador en el mapa principal (asegúrate de que el nodo se llame "Jugador")
-	var jugador = get_tree().current_scene.get_node("Jugador")
+	var jugador = get_tree().current_scene.get_node_or_null("Jugador")
 	if not jugador: return
 
 	# Calcular el ángulo entre la madre y el jugador
@@ -45,39 +49,60 @@ func hablar_exito(direccion):
 	elif direccion == "abajo": sprite_visual.texture = TEXTURA_ABAJO
 	elif direccion == "arriba": sprite_visual.texture = TEXTURA_ARRIBA
 	
-	# 1. Buscamos AMBAS interfaces en la escena
+	# Buscamos AMBAS interfaces en la escena
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
-	var pantalla_examen = get_tree().current_scene.get_node_or_null("CapaInterfaz/PantallaExamen") # Asegúrate de que la ruta sea correcta
+	var pantalla_examen = get_tree().current_scene.get_node_or_null("CapaInterfaz/PantallaExamen")
 	
-	$AvisoFlotante.hide() # Ocultamos la E
-	
-	# 2. LÓGICA: ¿Usamos Diálogo normal o Examen?
-	if Global.pregunta_pc_resuelta == false:
-		# Aún no hace la PC: Diálogo normal
+	if has_node("AvisoFlotante"):
+		$AvisoFlotante.hide() # Ocultamos la E
+		
+	# --- NUEVO: VERIFICAMOS SI YA TE GRADUASTE DEL NIVEL 1 ---
+	if Global.nivel_1_aprobado == true:
 		if nodo_dialogo:
-			nodo_dialogo.mostrar_texto("Hijo, recuerda responder las 3 preguntas para tener la medalla y pasar al siguiente nivel.\nPD: Sube a tu cuarto y responde la primera pregunta.") 
-	else:
-		# Ya hizo la PC: ¡Abrimos la interfaz de examen!
+			nodo_dialogo.mostrar_texto("¡Qué orgullo, ya eres todo un profesional! Sigue tu viaje con cuidado.")
+		return # El 'return' hace que el código se detenga aquí y no abra el examen
+	
+	# --- LÓGICA DE TURNOS Y BLOQUEO ---
+	if Global.preguntas_respondidas_nivel == 0:
+		# Aún no ha ido a la PC
+		if nodo_dialogo:
+			nodo_dialogo.mostrar_texto("Hijo, sube a tu cuarto y usa la PC para tu primera lección.")
+			
+	elif Global.preguntas_respondidas_nivel == 1:
+		# ¡Su turno! Ya hizo la PC, ahora le toca a ella
 		if pantalla_examen:
 			pantalla_examen.iniciar_examen()
+			
+	else:
+		# Si le hablas después de ganarle, te recuerda a dónde ir
+		if nodo_dialogo:
+			nodo_dialogo.mostrar_texto("¡Excelente! Ya estás preparado. Ve al camino principal y demuestra lo que sabes.")
+			
 func bloquear_interaccion():
 	print("No puedes hablarle desde ahí, la mesa está en medio.")
 
-# Estas funciones se crearon cuando conectaste las señales en el Paso 2.2
+# Función que se activa sola al ganar el examen
+func _activar_dialogo_automatico():
+	# Verificamos si la pregunta que acaba de responder es la número 2 (la de la madre)
+	if Global.preguntas_respondidas_nivel == 2:
+		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
+		if nodo_dialogo:
+			nodo_dialogo.mostrar_texto("¡Excelente! Ya estás preparado. Ve al camino principal y demuestra lo que sabes para avanzar al siguiente pueblo.")
+
+# Señales de entrada y salida
 func _on_area_sensor_body_entered(body):
 	if body.name == "Jugador":
 		jugador_en_rango = true
-		$AvisoFlotante.show() # Mostrar la "E"
+		if has_node("AvisoFlotante"):
+			$AvisoFlotante.show() # Mostrar la "E"
 
 func _on_area_sensor_body_exited(body):
 	if body.name == "Jugador":
 		jugador_en_rango = false
-		$AvisoFlotante.hide() # Ocultar la "E"
+		if has_node("AvisoFlotante"):
+			$AvisoFlotante.hide() # Ocultar la "E"
 		
 		# Buscar la Caja de Diálogo y ocultarla también
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
-			nodo_dialogo.hide() 
-			# Nota: Si tu caja de diálogo tiene una función especial para cerrarse 
-			# (por ejemplo, nodo_dialogo.cerrar() o nodo_dialogo.ocultar()), 
-			# úsala en lugar de .hide()
+			nodo_dialogo.hide()

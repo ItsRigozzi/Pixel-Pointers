@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dgd8q2qcnhht3"]
+
+[ext_resource type="Script" uid="uid://x5qdtuwponic" path="res://npc_traje.gd" id="1_7ml4r"]
+[ext_resource type="Texture2D" uid="uid://citn7hfg7ho2d" path="res://traje.png" id="2_s5xgh"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="3_grxjh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iknhl"]
+size = Vector2(136.90909, 254.54547)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ck57r"]
+radius = 111.90909
+height = 327.63635
+
+[node name="NPC_traje" type="StaticBody2D" unique_id=775074149]
+scale = Vector2(0.55, 0.55)
+script = ExtResource("1_7ml4r")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1906109045]
+position = Vector2(0, 3.9090881)
+scale = Vector2(1, 1.0291723)
+texture = ExtResource("2_s5xgh")
+hframes = 4
+vframes = 4
+region_enabled = true
+region_rect = Rect2(143.04982, 26.454556, 1146.9504, 970.8454)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2047350136]
+position = Vector2(-83.63636, -3.6363635)
+shape = SubResource("RectangleShape2D_iknhl")
+
+[node name="AreaSensor" type="Area2D" parent="." unique_id=960328662]
+position = Vector2(-105.454544, -3.6363635)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaSensor" unique_id=339988653]
+position = Vector2(19, -2)
+shape = SubResource("CapsuleShape2D_ck57r")
+
+[node name="AvisoFlotante" parent="." unique_id=971796311 instance=ExtResource("3_grxjh")]
+position = Vector2(20, -154.54544)
+
+[connection signal="body_entered" from="AreaSensor" to="." method="_on_area_sensor_body_entered"]
+[connection signal="body_exited" from="AreaSensor" to="." method="_on_area_sensor_body_exited"]

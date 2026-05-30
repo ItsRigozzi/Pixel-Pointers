@@ -27,6 +27,7 @@ stretch_mode = 6
 
 [node name="BotonIniciar" type="Button" parent="." unique_id=560591208]
 modulate = Color(9.7895565, 9.7895565, 9.7895565, 0.3882353)
+show_behind_parent = true
 layout_mode = 0
 offset_left = 695.0
 offset_top = 425.0
@@ -35,6 +36,7 @@ offset_bottom = 515.0
 
 [node name="BotonConfig" type="Button" parent="." unique_id=136291823]
 modulate = Color(9.7895565, 9.7895565, 9.7895565, 0.3882353)
+show_behind_parent = true
 layout_mode = 0
 offset_left = 694.0
 offset_top = 558.0
@@ -43,6 +45,7 @@ offset_bottom = 648.0
 
 [node name="BotonComoJugar" type="Button" parent="." unique_id=1070060484]
 modulate = Color(9.79, 9.79, 9.79, 0.388)
+show_behind_parent = true
 layout_mode = 0
 offset_left = 702.0
 offset_top = 691.0

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bvwg4reyiqfdu"]
+
+[ext_resource type="Script" uid="uid://bo8aeux77kt3r" path="res://cofre_pregunta.gd" id="1_g26cr"]
+[ext_resource type="Texture2D" uid="uid://deh2aq7esghvx" path="res://cofre.png" id="2_t8bwl"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="3_42ocx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g26cr"]
+size = Vector2(96, 97)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t8bwl"]
+radius = 61.0
+height = 134.0
+
+[node name="CofrePregunta" type="Area2D" unique_id=257275648]
+script = ExtResource("1_g26cr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1395949643]
+texture = ExtResource("2_t8bwl")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2070089918]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1130353389]
+position = Vector2(1, 3.5)
+shape = SubResource("RectangleShape2D_g26cr")
+
+[node name="AvisoFlotante" parent="." unique_id=971796311 instance=ExtResource("3_42ocx")]
+position = Vector2(34, -88)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1537013427]
+shape = SubResource("CapsuleShape2D_t8bwl")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

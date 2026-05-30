@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://cwvydn65rqliu"
+InterfazVidas="*uid://mfri2lba66q4"
 
 [display]
 

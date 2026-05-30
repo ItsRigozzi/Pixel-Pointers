@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bosiyh3feywey"]
+
+[ext_resource type="Texture2D" uid="uid://b5k8rhhesh8v7" path="res://fruteria.png" id="1_wojar"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="2_2o5g2"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="3_tlb08"]
+[ext_resource type="PackedScene" uid="uid://b0bl14syyttc1" path="res://npc_rubia.tscn" id="4_s0li6"]
+[ext_resource type="Script" uid="uid://yq1tf1akx3kw" path="res://salida_fruteria.gd" id="5_qujjy"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_tlb08"]
+a = Vector2(18, 492)
+b = Vector2(-251, 492)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uve22"]
+size = Vector2(214, 43)
+
+[node name="interior_fruteria" type="Node2D" unique_id=1882752066]
+y_sort_enabled = true
+
+[node name="Fondo" type="Sprite2D" parent="." unique_id=294871238]
+z_index = -1
+texture = ExtResource("1_wojar")
+
+[node name="Colisiones" type="StaticBody2D" parent="." unique_id=1741501799]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Colisiones" unique_id=1298793157]
+build_mode = 1
+polygon = PackedVector2Array(-33, 533, -33, 445, 71, 442, 73, 222, 429, 227, 433, 16, 422, 0, 397, 8, 362, -8, 346, -29, 347, -59, 342, -92, 339, -124, 351, -151, 370, -168, 371, -179, 339, -210, 102, -209, 97, -309, -68, -307, -65, -256, -65, -228, -83, -199, -125, -187, -159, -187, -191, -168, -228, -152, -273, -150, -313, -149, -439, -150, -434, 210, -304, 213, -302, 263, -241, 265, -238, 456, -204, 455, -213, 539, -753, 531, -740, -535, 766, -502, 752, 529)
+
+[node name="puerta" type="CollisionShape2D" parent="Colisiones" unique_id=1241476824]
+shape = SubResource("SegmentShape2D_tlb08")
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("2_2o5g2")]
+y_sort_enabled = true
+position = Vector2(-119.00003, 418)
+scale = Vector2(1.3, 1.3)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1459733350]
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=120605276]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("3_tlb08")]
+
+[node name="NPC_rubia" parent="." unique_id=1875039893 instance=ExtResource("4_s0li6")]
+y_sort_enabled = true
+position = Vector2(-386, -146)
+scale = Vector2(0.7, 0.7)
+
+[node name="SalidaFruteria" type="Area2D" parent="." unique_id=1754212742]
+position = Vector2(-123, 475)
+script = ExtResource("5_qujjy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaFruteria" unique_id=1693932927]
+position = Vector2(-7, 15.5)
+shape = SubResource("RectangleShape2D_uve22")
+
+[connection signal="body_entered" from="SalidaFruteria" to="SalidaFruteria" method="_on_body_entered"]

@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://d0vh8oge7t28v"]
+
+[ext_resource type="Script" uid="uid://0g8d4kl2fm5n" path="res://interior_herreria.gd" id="1_fm2p4"]
+[ext_resource type="Texture2D" uid="uid://ddpkpttgphjnq" path="res://herreria.png" id="1_sj2xb"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="2_re8rg"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="3_dw3xx"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="4_6eqr4"]
+[ext_resource type="PackedScene" uid="uid://bvwg4reyiqfdu" path="res://cofre_pregunta.tscn" id="5_6eqr4"]
+[ext_resource type="Script" uid="uid://cy0qdk8p4tqcm" path="res://salida_automatica.gd" id="7_qpeqq"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_fm2p4"]
+a = Vector2(-476, 479)
+b = Vector2(-30, 477)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fm2p4"]
+size = Vector2(380, 36)
+
+[node name="InteriorHerreria" type="Node2D" unique_id=1594643826]
+y_sort_enabled = true
+script = ExtResource("1_fm2p4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1215407302]
+z_index = -1
+texture = ExtResource("1_sj2xb")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1346733373]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=613981773]
+build_mode = 1
+polygon = PackedVector2Array(-97, 511, -100, 398, 719, 405, 719, -204, 703, -265, 249, -259, 247, -350, 82, -352, 82, -212, -162, -215, -179, -230, -181, -257, -203, -263, -231, -247, -232, -188, -365, -189, -379, -156, -410, -151, -435, -149, -442, -136, -474, -125, -529, -119, -558, -106, -587, -93, -569, -57, -577, -28, -588, -1, -624, 15, -674, 26, -687, 39, -638, 39, -513, 46, -471, 55, -440, 67, -451, 88, -468, 109, -477, 121, -466, 136, -460, 179, -464, 221, -503, 242, -545, 255, -545, 274, -516, 270, -518, 405, -432, 409, -434, 519, -925, 493, -853, -528, 862, -499, 828, 513)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=471798480]
+shape = SubResource("SegmentShape2D_fm2p4")
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("2_re8rg")]
+y_sort_enabled = true
+position = Vector2(-259, 383)
+scale = Vector2(1.2, 1.2)
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=659189071]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("3_dw3xx")]
+
+[node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("4_6eqr4")]
+visible = false
+
+[node name="CofrePregunta" parent="." unique_id=257275648 instance=ExtResource("5_6eqr4")]
+y_sort_enabled = true
+position = Vector2(675, -176)
+scale = Vector2(1.25, 1.25)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=667975035]
+
+[node name="SalidaHerreria" type="Area2D" parent="." unique_id=331889829]
+position = Vector2(-260, 466)
+script = ExtResource("7_qpeqq")
+escena_destino = "uid://dw3eu45b4tbel"
+nombre_puerta = "afuera_herreria"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaHerreria" unique_id=228131151]
+position = Vector2(-8, 5)
+shape = SubResource("RectangleShape2D_fm2p4")
+
+[node name="Pos_Entrada" type="Marker2D" parent="." unique_id=2038480109]
+position = Vector2(-257, 397)
+
+[connection signal="body_entered" from="SalidaHerreria" to="SalidaHerreria" method="_on_body_entered"]

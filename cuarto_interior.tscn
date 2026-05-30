@@ -2,17 +2,18 @@
 
 [ext_resource type="Script" uid="uid://xb5rtvpqqbwf" path="res://cuarto_interior.gd" id="1_ap4ai"]
 [ext_resource type="Texture2D" uid="uid://bmcf1yy1vy46o" path="res://cuarto.png" id="1_ktfua"]
-[ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="2_q3rxa"]
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="4_ke61k"]
 [ext_resource type="Script" uid="uid://dokvsd0gl1ax1" path="res://pc_interactiva.gd" id="5_3eogx"]
 [ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="6_6mtt0"]
 [ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="7_cirvv"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6mtt0"]
-size = Vector2(63.5, 100)
+[ext_resource type="Script" uid="uid://cy0qdk8p4tqcm" path="res://salida_automatica.gd" id="8_bi6ri"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="8_or7v0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ke61k"]
 size = Vector2(185, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cirvv"]
+size = Vector2(40, 147)
 
 [node name="cuarto_interior" type="Node2D" unique_id=1763341251]
 y_sort_enabled = true
@@ -38,22 +39,10 @@ polygon = PackedVector2Array(-475, 347, -447, 347, -443, 101, -474, 97)
 
 [node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=217456666]
 build_mode = 1
-polygon = PackedVector2Array(-633, 479, -639, -224, -620, -216, -593, -212, -568, -222, -533, -222, -506, -216, -510, -273, -299, -270, -302, -222, -286, -226, -285, -346, -62, -339, -55, -283, 319, -288, 321, -349, 392, -353, 390, -76, 655, -80, 659, 485)
-
-[node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("2_q3rxa")]
-position = Vector2(304, -187)
-escena_destino = "uid://7q04ilme1drr"
-nombre_punto_destino = "Pos_EscaleraAbajo"
-
-[node name="CollisionShape2D" parent="Puerta" index="0" unique_id=843295426]
-position = Vector2(50.75, -13)
-shape = SubResource("RectangleShape2D_6mtt0")
-
-[node name="AvisoFlotante" parent="Puerta" index="1" unique_id=971796311]
-position = Vector2(91, -58)
+polygon = PackedVector2Array(-633, 479, -639, -224, -620, -216, -593, -212, -568, -222, -533, -222, -506, -216, -510, -273, -299, -270, -293, -254, -285, -263, -285, -346, -62, -339, -55, -283, 319, -288, 321, -349, 392, -353, 390, -76, 655, -80, 659, 485)
 
 [node name="Pos_EscaleraArriba" type="Marker2D" parent="." unique_id=1404447401]
-position = Vector2(348, -191)
+position = Vector2(326, -200)
 
 [node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("4_ke61k")]
 position = Vector2(348, -189)
@@ -72,7 +61,29 @@ position = Vector2(-207, -231)
 [node name="PantallaExamen" parent="." unique_id=1288475170 instance=ExtResource("7_cirvv")]
 unique_name_in_owner = true
 
+[node name="CajaDialogo" parent="." unique_id=125224071 instance=ExtResource("8_or7v0")]
+anchors_preset = 9
+anchor_top = 0.0
+anchor_right = 0.0
+offset_left = -667.0
+offset_top = 520.0
+offset_right = -667.0
+offset_bottom = 520.0
+grow_horizontal = 1
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1357874716]
+
+[node name="SalidaCuarto" type="Area2D" parent="." unique_id=2059827381]
+position = Vector2(382, -191)
+script = ExtResource("8_bi6ri")
+escena_destino = "uid://7q04ilme1drr"
+nombre_puerta = "salida_cuarto"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaCuarto" unique_id=1161202923]
+position = Vector2(4, -12.5)
+shape = SubResource("RectangleShape2D_cirvv")
+
 [connection signal="body_entered" from="PC_Interactiva" to="PC_Interactiva" method="_on_body_entered"]
 [connection signal="body_exited" from="PC_Interactiva" to="PC_Interactiva" method="_on_body_exited"]
-
-[editable path="Puerta"]
+[connection signal="body_entered" from="SalidaCuarto" to="SalidaCuarto" method="_on_body_entered"]

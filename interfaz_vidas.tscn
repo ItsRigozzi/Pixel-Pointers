@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://mfri2lba66q4"]
+
+[ext_resource type="Script" uid="uid://dmej0jeodwlh3" path="res://interfaz_vidas.gd" id="1_4li16"]
+[ext_resource type="Texture2D" uid="uid://dbasc4xf3ipel" path="res://corazon_rojo.tres" id="2_jukln"]
+
+[node name="InterfazVidas" type="CanvasLayer" unique_id=2058596116]
+scale = Vector2(2, 2)
+transform = Transform2D(2, 0, 0, 2, 0, 0)
+script = ExtResource("1_4li16")
+
+[node name="ContenedorCorazones" type="HBoxContainer" parent="." unique_id=1708825281]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Corazon1" type="TextureRect" parent="ContenedorCorazones" unique_id=1758527286]
+layout_mode = 2
+texture = ExtResource("2_jukln")
+
+[node name="Corazon2" type="TextureRect" parent="ContenedorCorazones" unique_id=1865443449]
+layout_mode = 2
+texture = ExtResource("2_jukln")
+
+[node name="Corazon3" type="TextureRect" parent="ContenedorCorazones" unique_id=1733816274]
+layout_mode = 2
+texture = ExtResource("2_jukln")
+
+[node name="Corazon4" type="TextureRect" parent="ContenedorCorazones" unique_id=952640323]
+layout_mode = 2
+texture = ExtResource("2_jukln")
+
+[node name="Corazon5" type="TextureRect" parent="ContenedorCorazones" unique_id=1689923489]
+layout_mode = 2
+texture = ExtResource("2_jukln")

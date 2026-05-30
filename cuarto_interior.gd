@@ -1,15 +1,13 @@
 extends Node2D
 
 func _ready():
-	var camara = $Jugador/Camera2D
+	# 1. Forzamos a encender la cámara estática de esta habitación
+	$Camera2D.make_current()
 	
-	if camara:
-		# Mide con la regla en la pantalla 2D y ajusta estos números
-		camara.limit_left = -400  
-		camara.limit_right = 400
-		camara.limit_bottom = 300
-		camara.limit_top = -300
-		
+	# 2. Nos aseguramos de que los corazones aparezcan en pantalla
+	InterfazVidas.show()
+
+	# 3. MAGIA DE APARICIÓN (Para las puertas y escaleras)
 	if Global.punto_aparicion != "":
 		# Busca la marca X que le dijimos
 		var punto = get_node_or_null(Global.punto_aparicion)

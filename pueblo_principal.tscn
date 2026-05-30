@@ -6,14 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://bhesyjll1qg22" path="res://cartel_casa.tscn" id="3_uehib"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_soj3t"]
 [ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_bge1g"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="5_evje0"]
 [ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="7_0ca6c"]
-[ext_resource type="Script" uid="uid://dh1dngahm7fks" path="res://muro_examen.gd" id="7_7r7du"]
+[ext_resource type="PackedScene" uid="uid://dvdtukdfh5af5" path="res://jefe_nivel.tscn" id="9_evje0"]
+[ext_resource type="Script" uid="uid://pkskca5160xi" path="res://puerta_roja.gd" id="9_oooi0"]
+[ext_resource type="Script" uid="uid://d2t0jl4hi0uc2" path="res://salida_nivel.gd" id="11_2mvch"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7r7du"]
-size = Vector2(33.5, 195)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nwa5t"]
+size = Vector2(89, 34.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oooi0"]
-size = Vector2(38, 195)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evje0"]
+size = Vector2(87, 35.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2mvch"]
+size = Vector2(25, 127)
 
 [node name="pueblo_base" type="Node2D" unique_id=536373215]
 script = ExtResource("1_soj3t")
@@ -34,7 +40,7 @@ position = Vector2(512, 113)
 
 [node name="Collision_abajo" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=691082968]
 build_mode = 1
-polygon = PackedVector2Array(-960, 246, -536, 244, -518, 261, -517, 346, -406, 343, -413, 234, -369, 239, -366, 274, -365, 297, -356, 307, -231, 306, -231, 262, -226, 237, -215, 212, -136, 206, -34, 211, -35, 346, 582, 347, 580, 303, 583, 268, 583, 246, 583, 218, 605, 199, 639, 195, 699, 196, 753, 196, 785, 199, 818, 201, 835, 196, 842, 171, 844, 151, 832, 129, 823, 123, 916, 139, 929, 531, -925, 468)
+polygon = PackedVector2Array(-969, 226, -531, 230, -518, 261, -517, 346, -406, 343, -413, 234, -369, 239, -366, 274, -365, 297, -356, 307, -231, 306, -231, 262, -226, 237, -215, 212, -136, 206, -34, 211, -35, 346, 582, 347, 580, 303, 583, 268, 583, 246, 583, 218, 605, 199, 639, 195, 699, 196, 753, 196, 785, 199, 818, 201, 835, 196, 842, 171, 844, 151, 832, 129, 823, 123, 916, 139, 929, 531, -925, 468)
 
 [node name="Collision_arriba" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=1300466072]
 build_mode = 1
@@ -42,7 +48,7 @@ polygon = PackedVector2Array(-965, 141, -919, 147, -878, 147, -848, 145, -832, 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=1222405385]
 build_mode = 1
-polygon = PackedVector2Array(401, 92, 401, 141, 196, 139, 202, -159, 205, -200, 840, -203, 832, 146, 602, 141, 602, 115, 526, 118, 524, 89, 796, 86, 804, -162, 225, -162, 224, 87)
+polygon = PackedVector2Array(402, 72, 401, 141, 196, 139, 198, -161, 205, -200, 840, -203, 832, 146, 602, 141, 602, 115, 526, 118, 523, 78, 795, 74, 791, -161, 239, -153, 249, 72)
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="colisiones_pueblo" unique_id=20436361]
 build_mode = 1
@@ -59,39 +65,55 @@ offset_top = -85.0
 offset_right = 2.0
 offset_bottom = -85.0
 grow_horizontal = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("5_evje0")]
 
 [node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_bge1g")]
 position = Vector2(401, 18)
 escena_destino = "uid://7q04ilme1drr"
 
+[node name="CollisionShape2D" parent="Puerta" index="0" unique_id=843295426]
+position = Vector2(41.5, -3.25)
+shape = SubResource("RectangleShape2D_nwa5t")
+
 [node name="Pos_PuertaCasa" type="Marker2D" parent="." unique_id=1481581381]
 position = Vector2(439, 35)
 
 [node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("1_8md0o")]
-position = Vector2(2, 0)
+position = Vector2(1.999939, 1.5258789e-05)
 scale = Vector2(0.83, 0.83)
 
-[node name="MuroExamen" type="StaticBody2D" parent="." unique_id=634034437]
-position = Vector2(457, -95)
-script = ExtResource("7_7r7du")
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1463324183]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MuroExamen" unique_id=1492814663]
-position = Vector2(-1412, 290)
-shape = SubResource("RectangleShape2D_7r7du")
+[node name="PuertaRoja" type="Area2D" parent="." unique_id=1038724233]
+position = Vector2(-569, 23)
+script = ExtResource("9_oooi0")
 
-[node name="SensorMuro" type="Area2D" parent="MuroExamen" unique_id=366553936]
-position = Vector2(-1327, 278)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaRoja" unique_id=401079870]
+position = Vector2(13, -5)
+shape = SubResource("RectangleShape2D_evje0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MuroExamen/SensorMuro" unique_id=2144068957]
-position = Vector2(-80, 13)
-shape = SubResource("RectangleShape2D_oooi0")
+[node name="AvisoFlotante" parent="PuertaRoja" unique_id=1032600612 instance=ExtResource("7_0ca6c")]
+position = Vector2(68, -49)
 
-[node name="AvisoFlotante" parent="MuroExamen" unique_id=971796311 instance=ExtResource("7_0ca6c")]
-position = Vector2(-1386, 177)
+[node name="JefeNivel" parent="." unique_id=312122346 instance=ExtResource("9_evje0")]
+position = Vector2(-869.00006, 189)
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1335619722]
-position = Vector2(-1, 6)
-zoom = Vector2(0.59, 0.59)
+[node name="SalidaNivel" type="Area2D" parent="." unique_id=339981362]
+position = Vector2(-947, 156)
+script = ExtResource("11_2mvch")
 
-[connection signal="body_entered" from="MuroExamen/SensorMuro" to="MuroExamen" method="_on_sensor_muro_body_entered"]
-[connection signal="body_exited" from="MuroExamen/SensorMuro" to="MuroExamen" method="_on_sensor_muro_body_exited"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaNivel" unique_id=1957178113]
+position = Vector2(1, 37)
+shape = SubResource("RectangleShape2D_2mvch")
+
+[node name="Pos_Inicio_Nivel2" type="Marker2D" parent="." unique_id=1293102673]
+position = Vector2(-910, 196)
+
+[connection signal="body_entered" from="PuertaRoja" to="PuertaRoja" method="_on_body_entered"]
+[connection signal="body_exited" from="PuertaRoja" to="PuertaRoja" method="_on_body_exited"]
+[connection signal="body_entered" from="SalidaNivel" to="SalidaNivel" method="_on_body_entered"]
+[connection signal="body_exited" from="SalidaNivel" to="SalidaNivel" method="_on_body_exited"]
+
+[editable path="Puerta"]

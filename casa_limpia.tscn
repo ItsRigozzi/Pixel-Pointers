@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="5_bsodu"]
 [ext_resource type="PackedScene" uid="uid://bshlfg37jpxia" path="res://puerta.tscn" id="5_nhtop"]
 [ext_resource type="PackedScene" uid="uid://bx46bpru4tqpa" path="res://madre_npc.tscn" id="6_sf5ae"]
+[ext_resource type="Script" uid="uid://cy0qdk8p4tqcm" path="res://salida_automatica.gd" id="8_dagbv"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_wm0j4"]
 a = Vector2(509, -183)
@@ -18,6 +19,9 @@ b = Vector2(33, 95)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sf5ae"]
 size = Vector2(80.5, 130)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsodu"]
+size = Vector2(192, 33)
 
 [node name="casa_limpia" type="Node2D" unique_id=1467700433]
 y_sort_enabled = true
@@ -81,17 +85,6 @@ grow_horizontal = 1
 [node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("5_bsodu")]
 visible = false
 
-[node name="Puerta" parent="." unique_id=72455224 instance=ExtResource("5_nhtop")]
-position = Vector2(-280, 478)
-escena_destino = "uid://bg7e3srodwpre"
-nombre_punto_destino = "Pos_PuertaCasa"
-
-[node name="CollisionShape2D" parent="Puerta" index="0" unique_id=843295426]
-position = Vector2(42, 1.5)
-
-[node name="AvisoFlotante" parent="Puerta" index="1" unique_id=971796311]
-position = Vector2(133, -56)
-
 [node name="madre_npc" parent="." unique_id=720412723 instance=ExtResource("6_sf5ae")]
 position = Vector2(236, -2)
 
@@ -110,5 +103,18 @@ position = Vector2(86, -61)
 [node name="Pos_EscaleraAbajo" type="Marker2D" parent="." unique_id=1932878811]
 position = Vector2(456, -211)
 
-[editable path="Puerta"]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1411386537]
+
+[node name="SalidaCasa" type="Area2D" parent="." unique_id=702936018]
+position = Vector2(-245, 489)
+script = ExtResource("8_dagbv")
+escena_destino = "uid://bg7e3srodwpre"
+nombre_puerta = "afuera_casa_inicio"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaCasa" unique_id=1261926016]
+position = Vector2(10, 6.5)
+shape = SubResource("RectangleShape2D_bsodu")
+
+[connection signal="body_entered" from="SalidaCasa" to="SalidaCasa" method="_on_body_entered"]
+
 [editable path="Puerta2"]
