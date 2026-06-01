@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="5_u0vi0"]
 [ext_resource type="Script" uid="uid://tibqgrvyau0s" path="res://puerta_edificio_1.gd" id="7_cc5t6"]
 [ext_resource type="Script" uid="uid://cied8qshx3say" path="res://puerta_edificio_2.gd" id="8_ohxb6"]
+[ext_resource type="PackedScene" uid="uid://dvdtukdfh5af5" path="res://jefe_nivel.tscn" id="9_irjju"]
+[ext_resource type="Script" uid="uid://fstf6q130ary" path="res://puerta_bloqueada.gd" id="10_0vhwx"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_xsvmw"]
 a = Vector2(947, 429)
@@ -22,9 +24,14 @@ size = Vector2(160, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ohxb6"]
 size = Vector2(116, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqefv"]
+size = Vector2(119, 24)
+
 [node name="MapaNivel3" type="Node2D" unique_id=809907301]
+y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1864666549]
+z_index = -1
 texture = ExtResource("1_xsvmw")
 
 [node name="LimitesMapa" type="StaticBody2D" parent="." unique_id=1062973655]
@@ -41,11 +48,16 @@ polygon = PackedVector2Array(77, -330, 144, -330, 147, -390, 148, -412, 143, -44
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1311929330]
 
 [node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("2_smrr2")]
+y_sort_enabled = true
 position = Vector2(877, 248)
 
 [node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=881191659]
 
 [node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("3_1qvpl")]
+offset_left = 5.0
+offset_top = -681.0
+offset_right = 5.0
+offset_bottom = -33.0
 
 [node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("4_u0vi0")]
 visible = false
@@ -92,9 +104,27 @@ position = Vector2(73, -58)
 [node name="Pos_Inicio_Edificio2" type="Marker2D" parent="." unique_id=761787574]
 position = Vector2(376, 97)
 
+[node name="JefeNivel" parent="." unique_id=312122346 instance=ExtResource("9_irjju")]
+y_sort_enabled = true
+position = Vector2(222, -422)
+nivel_asignado = 3
+
+[node name="PuertaBloqueada" type="Area2D" parent="." unique_id=1138070467]
+position = Vector2(845, 97)
+script = ExtResource("10_0vhwx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PuertaBloqueada" unique_id=1929244630]
+position = Vector2(13.5, -2)
+shape = SubResource("RectangleShape2D_sqefv")
+
+[node name="AvisoFlotante" parent="PuertaBloqueada" unique_id=214179272 instance=ExtResource("5_u0vi0")]
+position = Vector2(-53, -57)
+
 [connection signal="body_entered" from="areaNivel3" to="areaNivel3" method="_on_body_entered"]
 [connection signal="body_exited" from="areaNivel3" to="areaNivel3" method="_on_body_exited"]
 [connection signal="body_entered" from="PuertaEdificio1" to="PuertaEdificio1" method="_on_body_entered"]
 [connection signal="body_exited" from="PuertaEdificio1" to="PuertaEdificio1" method="_on_body_exited"]
 [connection signal="body_entered" from="PuertaEdificio2" to="PuertaEdificio2" method="_on_body_entered"]
 [connection signal="body_exited" from="PuertaEdificio2" to="PuertaEdificio2" method="_on_body_exited"]
+[connection signal="body_entered" from="PuertaBloqueada" to="PuertaBloqueada" method="_on_body_entered"]
+[connection signal="body_exited" from="PuertaBloqueada" to="PuertaBloqueada" method="_on_body_exited"]

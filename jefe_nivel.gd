@@ -4,6 +4,7 @@ extends StaticBody2D
 
 var jugador_cerca = false
 var ya_se_presento = false
+var esperando_examen = false # NUEVO: Candado de seguridad para la prueba
 
 @onready var aviso_e = find_child("AvisoFlotante")
 
@@ -13,13 +14,18 @@ func _ready():
 		
 	Global.examen_aprobado.connect(_al_aprobar_examen)
 	
+	# Destrucción si el nivel ya fue superado
 	if nivel_asignado == 1:
 		if Global.nivel_1_aprobado == true or Global.preguntas_respondidas_nivel >= 3:
 			queue_free()
 			
-	# NUEVO: Si volvemos al Nivel 2 y ya tenemos las 2 medallas, el Jefe no aparece
 	elif nivel_asignado == 2:
 		if Global.insignias >= 2:
+			queue_free()
+			
+	# NUEVO: Si volvemos al Nivel 3 y ya ganamos la tercera medalla
+	elif nivel_asignado == 3:
+		if Global.insignias >= 3:
 			queue_free()
 
 func _process(_delta):
@@ -70,6 +76,7 @@ func ejecutar_dialogo():
 				nodo_dialogo.mostrar_texto("¡Alto ahí, novato! Aún no dominas lo básico. Ve a tu residencia y repasa tus apuntes primero.")
 		elif Global.preguntas_respondidas_nivel == 2:
 			if pantalla_examen:
+				esperando_examen = true
 				pantalla_examen.iniciar_examen()
 				
 	# ==========================================
@@ -99,7 +106,34 @@ func ejecutar_dialogo():
 				ya_se_presento = true
 			else:
 				if pantalla_examen:
+					esperando_examen = true
 					pantalla_examen.iniciar_examen_para_nivel(2)
+
+	# ==========================================
+	# NUEVO: LÓGICA DEL NIVEL 3
+	# ==========================================
+	elif nivel_asignado == 3:
+		# ¡LA SOLUCIÓN! Revisar si ya ganaste el trofeo final en lugar de contar medallas
+		if Global.trofeo_final_obtenido == true:
+			if nodo_dialogo:
+				nodo_dialogo.mostrar_texto("con esto concluye tu gran aventura en el mundo de C... ¡Muchísimas gracias por jugar y navegar en este proyecto! Has demostrado ser un excelente jugador.")
+			return 
+			
+		# Si aún no lo ganas, revisamos a los NPCs
+		if Global.npc_nivel3_respondido == true and Global.npc_traje_n3_respondido == true:
+			if ya_se_presento == false:
+				if nodo_dialogo:
+					nodo_dialogo.mostrar_texto("Veo que superaste a mis dos mejores alumnos en los edificios. ¡Es hora de tu prueba final! (Vuelve a presionar la E)")
+				ya_se_presento = true
+			else:
+				if pantalla_examen:
+					esperando_examen = true
+					pantalla_examen.iniciar_examen_para_nivel(3)
+		else:
+			# Si te falta alguno de los dos
+			if nodo_dialogo:
+				nodo_dialogo.mostrar_texto("Aún no estás listo. Vuelve cuando hayas respondido a las preguntas dentro de los dos edificios.")
+			return
 
 func _al_aprobar_examen():
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
@@ -107,7 +141,8 @@ func _al_aprobar_examen():
 	# ==========================================
 	# VICTORIA NIVEL 1
 	# ==========================================
-	if nivel_asignado == 1 and Global.preguntas_respondidas_nivel == 3:
+	if nivel_asignado == 1 and esperando_examen == true:
+		esperando_examen = false
 		Global.insignias += 1
 		var medalla_img = load("res://medalla1.png")
 		AnimacionMedalla.mostrar_recompensa(medalla_img)
@@ -119,15 +154,44 @@ func _al_aprobar_examen():
 		queue_free()
 
 	# ==========================================
-	# VICTORIA NIVEL 2 (Ignora el contador bugueado)
+	# VICTORIA NIVEL 2
 	# ==========================================
-	elif nivel_asignado == 2 and ya_se_presento == true and Global.insignias < 2:
+	elif nivel_asignado == 2 and esperando_examen == true:
+		esperando_examen = false
 		Global.insignias += 1
 		var medalla_img = load("res://medalla2.png")
 		AnimacionMedalla.mostrar_recompensa(medalla_img)
 		
 		if nodo_dialogo:
 			nodo_dialogo.mostrar_texto("¡Impresionante! Has demostrado ser digno. Toma esta MEDALLA, he mandado a despejar el bloqueo del camino.")
+
+	# ==========================================
+	# VICTORIA NIVEL 3 (GRAN FINAL)
+	# ==========================================
+	elif nivel_asignado == 3 and esperando_examen == true:
+		esperando_examen = false
+		Global.insignias += 1
+		Global.trofeo_final_obtenido = true 
+		
+		var medalla_img = load("res://medalla3.png") 
+		if AnimacionMedalla:
+			AnimacionMedalla.mostrar_recompensa(medalla_img, "¡MEDALLA Y TROFEO OBTENIDOS!")
+			
+		if nodo_dialogo:
+			# 1. Congelamos al jugador
+			Global.bloqueado = true 
+			
+			# 2. Mostramos TODO el mensaje final de una sola vez
+			nodo_dialogo.mostrar_texto("¡Extraordinario! Has superado el desafío de la memoria dinámica. Toma esta última MEDALLA y el TROFEO FINAL.\n\nY con esto concluye tu gran aventura en el mundo de C... ¡Muchísimas gracias por jugar y navegar en este proyecto! Has demostrado ser un excelente jugador.")
+			
+			# 3. Esperamos 8 segundos (o los que tú quieras) para que lo lean obligatoriamente
+			await get_tree().create_timer(8.0).timeout 
+			
+			# 4. Cerramos la caja de diálogo automáticamente
+			nodo_dialogo.cerrar_dialogo()
+			
+			# 5. Le devolvemos el control al jugador
+			Global.bloqueado = false
 
 # --- SENSORES ---
 func _on_area_sensor_body_entered(body):

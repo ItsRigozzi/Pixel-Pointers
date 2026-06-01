@@ -1,5 +1,6 @@
 extends Node
 
+var trofeo_final_obtenido = false
 var npc_traje_n3_respondido = false
 var silva_ruta_k_respondida = false # Recuerda si ya vencimos a Silva (ya sea por cura o trofeo)
 var npc_nivel3_respondido = false
@@ -339,17 +340,30 @@ func preparar_preguntas_nivel(nivel):
 	preguntas_respondidas_nivel = 0
 
 func aplicar_game_over():
+	# 1. Curamos al jugador y reiniciamos el contador de ese nivel
 	vidas_actuales = vidas_maximas
 	InterfazVidas.actualizar_vidas()
 	preguntas_respondidas_nivel = 0
 	
+	# 2. Barajamos las preguntas del nivel en el que murió
 	preparar_preguntas_nivel(nivel_actual)
 	
+	# ==========================================
+	# 3. RESET DE MEMORIAS (SISTEMA DE CHECKPOINTS)
+	# ==========================================
 	if nivel_actual == 1:
+		# En el Nivel 1 no hay memorias permanentes de NPCs que limpiar por ahora
 		get_tree().change_scene_to_file("res://pueblo_principal.tscn")
+		
 	elif nivel_actual == 2:
+		# Si muere en el Nivel 2, Silva olvida que le respondiste
+		silva_ruta_k_respondida = false
 		get_tree().change_scene_to_file("res://mapa_nivel_2.tscn")
+		
 	elif nivel_actual == 3:
+		# Si muere en el Nivel 3, Mellado y el chico del traje olvidan que les respondiste
+		npc_nivel3_respondido = false
+		npc_traje_n3_respondido = false
 		get_tree().change_scene_to_file("res://mapa_nivel_3.tscn")
 
 func curar_vida(cantidad):
