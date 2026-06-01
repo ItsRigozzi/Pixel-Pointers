@@ -19,21 +19,21 @@ var opcion_c = ""
 func _ready():
 	hide()
 
-# NUEVO: Una función opcional por si queremos forzar un nivel específico
 func iniciar_examen_para_nivel(numero_nivel):
 	if Global.nivel_actual != numero_nivel:
 		Global.nivel_actual = numero_nivel
-		Global.preguntas_disponibles.clear() # Forzamos a que pida nuevas preguntas
+		Global.preguntas_disponibles.clear()
 		
 	iniciar_examen()
 
 func iniciar_examen():
-	# Si la lista está vacía, manda a preparar las del nivel actual
+	# Bloqueamos al jugador al abrir el examen
+	Global.bloqueado = true
+	
 	if Global.preguntas_disponibles.size() == 0:
 		Global.preparar_preguntas_nivel(Global.nivel_actual)
 	
 	pregunta_actual = Global.preguntas_disponibles.pop_front()
-	
 	cargar_textos_en_pantalla()
 	
 	mensaje_feedback.text = "" 
@@ -44,7 +44,7 @@ func iniciar_examen():
 	boton_entendido.hide() 
 	cartel_progreso.hide()
 	
-	show()                   
+	show()
 	get_tree().paused = true 
 
 func cargar_textos_en_pantalla():
@@ -53,18 +53,16 @@ func cargar_textos_en_pantalla():
 	
 	var opciones = pregunta_actual["falsas"].duplicate()
 	opciones.append(respuesta_correcta_texto)
-	
 	opciones.shuffle()
 	
 	opcion_a = opciones[0]
 	opcion_b = opciones[1]
 	opcion_c = opciones[2]
 	
-	texto_a.text = "A) " + opcion_a
-	texto_b.text = "B) " + opcion_b
-	texto_c.text = "C) " + opcion_c
-
-# --- EVALUACIÓN Y SEÑALES DE BOTONES ---
+	# AQUÍ ESTÁ EL CAMBIO: Asignamos el texto directamente, sin la letra
+	texto_a.text = opcion_a
+	texto_b.text = opcion_b
+	texto_c.text = opcion_c
 
 func evaluar_respuesta(texto_elegido):
 	if texto_elegido == respuesta_correcta_texto:
@@ -84,8 +82,11 @@ func victoria():
 	boton_entendido.hide()
 	mensaje_feedback.hide()
 	
-	Global.preguntas_respondidas_nivel += 1
+	# Desbloqueamos y despausamos al ganar
+	Global.bloqueado = false
 	get_tree().paused = false
+	
+	Global.preguntas_respondidas_nivel += 1
 	
 	cartel_progreso.show()
 	texto_progreso.text = "¡Correcto!\nSigue así."
@@ -98,20 +99,27 @@ func victoria():
 	Global.examen_aprobado.emit()
 	
 func derrota():
-	Global.vidas_actuales -= 1
-	InterfazVidas.actualizar_vidas()
-	
 	$BotonA.hide()
 	$BotonB.hide()
 	$BotonC.hide()
 	
-	if Global.vidas_actuales > 0:
-		texto_pregunta.text = "¡INCORRECTO! Perdiste 1 vida.\n\nPISTA: " + pregunta_actual["feedback"]
+	# Si NO estamos en modo seguro, te quitamos vida
+	if Global.examen_seguro == false:
+		Global.vidas_actuales -= 1
+		InterfazVidas.actualizar_vidas()
+	
+	if Global.vidas_actuales > 0 or Global.examen_seguro == true:
+		if Global.examen_seguro == true:
+			texto_pregunta.text = "¡INCORRECTO! Pero es un examen de práctica, no pierdes vidas.\n\nPISTA: " + pregunta_actual["feedback"]
+		else:
+			texto_pregunta.text = "¡INCORRECTO! Perdiste 1 vida.\n\nPISTA: " + pregunta_actual["feedback"]
 		boton_entendido.show()
 	else:
 		texto_pregunta.text = "¡TE QUEDASTE SIN VIDAS!\n\nSegmentation Fault."
 		await get_tree().create_timer(3.0, true).timeout
+		
 		get_tree().paused = false
+		Global.bloqueado = false
 		hide()
 		Global.aplicar_game_over()
 

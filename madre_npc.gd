@@ -105,4 +105,4 @@ func _on_area_sensor_body_exited(body):
 		# Buscar la Caja de Diálogo y ocultarla también
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
-			nodo_dialogo.hide()
+			nodo_dialogo.cerrar_dialogo()

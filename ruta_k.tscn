@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://yrm2xg2ua1yq"]
+
+[ext_resource type="Texture2D" uid="uid://c2wrf0djmhk8a" path="res://rutaK.png" id="1_xm7mm"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="2_022lw"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="3_ihg7f"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="4_hwjaa"]
+[ext_resource type="PackedScene" uid="uid://bstnf8vpv7lkl" path="res://npc_silva.tscn" id="5_inlfa"]
+[ext_resource type="Script" uid="uid://b8rvtmk8bnin0" path="res://area_2d.gd" id="6_hwjaa"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="6_ihg7f"]
+[ext_resource type="Script" uid="uid://s86nwwv8buok" path="res://salida_automatica_n_3.gd" id="8_inlfa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_022lw"]
+size = Vector2(26, 201)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hwjaa"]
+size = Vector2(26, 147)
+
+[node name="RutaK" type="Node2D" unique_id=1047261075]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=213230691]
+z_index = -1
+texture = ExtResource("1_xm7mm")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=113115272]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=661645586]
+build_mode = 1
+polygon = PackedVector2Array(963, 96, 73, 98, 65, 256, -962, 260, -751, 403, 770, 357)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1414376333]
+build_mode = 1
+polygon = PackedVector2Array(955, -79, 609, -83, 580, -100, 561, -185, 561, -214, 514, -230, 500, -209, 506, -108, 440, -82, 384, -74, 313, -69, 261, -50, 195, -40, 153, -45, 131, -21, 87, -14, 57, -35, 24, -40, -6, -30, -34, -11, -69, 8, -58, 60, -59, 121, -67, 157, -140, 166, -201, 168, -245, 165, -261, 111, -262, 70, -272, 18, -361, 18, -362, 82, -364, 116, -402, 121, -456, 121, -497, 129, -531, 131, -557, 145, -612, 155, -676, 149, -699, 82, -726, 57, -778, 66, -826, 113, -849, 149, -960, 173, -849, -368, 889, -357)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=109536309]
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=1297595279]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("2_022lw")]
+
+[node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("3_ihg7f")]
+visible = false
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("4_hwjaa")]
+y_sort_enabled = true
+position = Vector2(881.99994, 20)
+scale = Vector2(1.1, 1.1)
+
+[node name="Npc_silva" parent="." unique_id=1750436373 instance=ExtResource("5_inlfa")]
+y_sort_enabled = true
+position = Vector2(-274, 36)
+scale = Vector2(0.6, 0.6)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=347334301]
+position = Vector2(950, 56)
+script = ExtResource("6_hwjaa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1832640508]
+position = Vector2(-3, -42.5)
+shape = SubResource("RectangleShape2D_022lw")
+
+[node name="AvisoFlotante" parent="Area2D" unique_id=971796311 instance=ExtResource("6_ihg7f")]
+position = Vector2(-30, -111)
+
+[node name="Pos_Inicio_DesdeN2" type="Marker2D" parent="." unique_id=1369822345]
+position = Vector2(883, 19)
+
+[node name="SalidaAutomaticaN3" type="Area2D" parent="." unique_id=799070158]
+position = Vector2(-953, 218)
+script = ExtResource("8_inlfa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaAutomaticaN3" unique_id=2128387156]
+position = Vector2(3, -3.5)
+shape = SubResource("RectangleShape2D_hwjaa")
+
+[node name="Pos_Inicio_DesdeN3" type="Marker2D" parent="." unique_id=1766818785]
+position = Vector2(-917, 218)
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
+[connection signal="body_entered" from="SalidaAutomaticaN3" to="SalidaAutomaticaN3" method="_on_body_entered"]

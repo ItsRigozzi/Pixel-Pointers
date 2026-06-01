@@ -1,0 +1,163 @@
+[gd_scene format=3 uid="uid://b1tdlb0g3v5ai"]
+
+[ext_resource type="Script" uid="uid://v1o415e8p2m0" path="res://menu_pausa.gd" id="1_f0gls"]
+[ext_resource type="Texture2D" uid="uid://dvfx2wj6uqa8t" path="res://medalla1.png" id="1_tyo0u"]
+[ext_resource type="Texture2D" uid="uid://dt3grn6qtxr4r" path="res://medalla2.png" id="2_f0gls"]
+[ext_resource type="Texture2D" uid="uid://d3aksxds2v5fh" path="res://medalla3.png" id="3_kso7j"]
+[ext_resource type="Texture2D" uid="uid://t6n33prgfdbj" path="res://llave.png" id="5_kso7j"]
+[ext_resource type="Texture2D" uid="uid://cppg4bdklnvqb" path="res://trofeo.png" id="6_m1pn8"]
+
+[node name="MenuPausa" type="CanvasLayer" unique_id=544970279]
+process_mode = 3
+script = ExtResource("1_f0gls")
+
+[node name="FondoOscuro" type="ColorRect" parent="." unique_id=331245561]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="PanelDerecho" type="Panel" parent="." unique_id=1570340549]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -445.0
+offset_top = -538.0
+offset_right = -2.0
+offset_bottom = 520.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Medalla1" type="TextureRect" parent="PanelDerecho" unique_id=1727562289]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 24.0
+offset_top = -214.0
+offset_right = 309.0
+offset_bottom = 255.0
+grow_vertical = 2
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("1_tyo0u")
+
+[node name="Medalla2" type="TextureRect" parent="PanelDerecho" unique_id=1686063389]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -217.0
+offset_right = 247.5
+offset_bottom = 252.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("2_f0gls")
+
+[node name="Medalla3" type="TextureRect" parent="PanelDerecho" unique_id=97865988]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -111.0
+offset_top = -215.0
+offset_right = 174.0
+offset_bottom = 254.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("3_kso7j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelDerecho" unique_id=1734671113]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 730.0
+offset_right = 442.0
+offset_bottom = 1025.0
+theme_override_constants/separation = 50
+
+[node name="Continuar" type="Button" parent="PanelDerecho/VBoxContainer" unique_id=1222890576]
+custom_minimum_size = Vector2(0, 61)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+text = "CONTINUAR"
+
+[node name="Guardar Partida" type="Button" parent="PanelDerecho/VBoxContainer" unique_id=1591397778]
+custom_minimum_size = Vector2(0, 61)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+text = "Guardar Partida"
+
+[node name="Salir del Juego" type="Button" parent="PanelDerecho/VBoxContainer" unique_id=493908181]
+custom_minimum_size = Vector2(0, 61)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+text = "Salir del Juego"
+
+[node name="TituloMenu" type="Label" parent="PanelDerecho" unique_id=907191944]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.5
+offset_right = 100.5
+offset_bottom = 35.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 36
+text = "MENÚ DE PAUSA"
+
+[node name="TextoTiempo" type="Label" parent="PanelDerecho" unique_id=1201768722]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -121.5
+offset_top = -414.0
+offset_right = 113.5
+offset_bottom = -365.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 35
+text = "Tiempo: 00:00"
+
+[node name="IconoLlave" type="TextureRect" parent="PanelDerecho" unique_id=2004369341]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 498.0
+offset_right = 236.0
+offset_bottom = 717.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_kso7j")
+
+[node name="IconoTrofeo" type="TextureRect" parent="PanelDerecho" unique_id=1706337290]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 189.0
+offset_top = 477.00003
+offset_right = 434.0
+offset_bottom = 980.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_m1pn8")
+
+[connection signal="pressed" from="PanelDerecho/VBoxContainer/Continuar" to="." method="_on_continuar_pressed"]
+[connection signal="pressed" from="PanelDerecho/VBoxContainer/Guardar Partida" to="." method="_on_guardar_partida_pressed"]
+[connection signal="pressed" from="PanelDerecho/VBoxContainer/Salir del Juego" to="." method="_on_salir_del_juego_pressed"]

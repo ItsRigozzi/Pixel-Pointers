@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgpc8om1pht3s"
-path="res://.godot/imported/Silvana-Roncagliolo.png-402aee410760ad326bd08ae7156c572f.ctex"
+uid="uid://b16hfy6wwbjk4"
+path="res://.godot/imported/profesor2.png-75e3a4fb16f05549a1869a6e82f1e58b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Silvana-Roncagliolo.png"
-dest_files=["res://.godot/imported/Silvana-Roncagliolo.png-402aee410760ad326bd08ae7156c572f.ctex"]
+source_file="res://profesor2.png"
+dest_files=["res://.godot/imported/profesor2.png-75e3a4fb16f05549a1869a6e82f1e58b.ctex"]
 
 [params]
 

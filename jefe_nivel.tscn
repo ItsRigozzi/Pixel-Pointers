@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cknc8s8jik4kt" path="res://jefe_nivel.gd" id="1_1yuw2"]
 [ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="1_g77p4"]
-[ext_resource type="Texture2D" uid="uid://c7nanrsgflc7d" path="res://Claudio-Cubillos.png" id="2_1yuw2"]
+[ext_resource type="Texture2D" uid="uid://c7nanrsgflc7d" path="res://jefeNivel.png" id="2_1yuw2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1yuw2"]
 size = Vector2(153.33337, 252.50006)

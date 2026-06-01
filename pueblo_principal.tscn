@@ -111,6 +111,9 @@ shape = SubResource("RectangleShape2D_2mvch")
 [node name="Pos_Inicio_Nivel2" type="Marker2D" parent="." unique_id=1293102673]
 position = Vector2(-910, 196)
 
+[node name="Pos_Inicio_CasaRoja" type="Marker2D" parent="." unique_id=996944928]
+position = Vector2(-560, 37)
+
 [connection signal="body_entered" from="PuertaRoja" to="PuertaRoja" method="_on_body_entered"]
 [connection signal="body_exited" from="PuertaRoja" to="PuertaRoja" method="_on_body_exited"]
 [connection signal="body_entered" from="SalidaNivel" to="SalidaNivel" method="_on_body_entered"]

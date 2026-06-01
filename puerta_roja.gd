@@ -24,7 +24,7 @@ func _on_body_exited(body):
 		# También cerramos el diálogo si el jugador decide irse caminando
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
-			nodo_dialogo.hide()
+			nodo_dialogo.cerrar_dialogo()
 
 func _input(event):
 	if jugador_cerca and (event.is_action_pressed("ui_accept") or event.is_action_pressed("interactuar")):
@@ -39,10 +39,19 @@ func _input(event):
 			# LA PUERTA ESTÁ CERRADA
 			if nodo_dialogo:
 				nodo_dialogo.mostrar_texto("La puerta está cerrada. Hay una nota: 'Fui a hacer trámites, búscame si necesitas entrar. Atte: El Mago'")
-			else:
-				print("ERROR: No encontré la CajaDialogo")
 		else:
-			# LA PUERTA SE ABRE (Para el futuro)
+			# LA PUERTA SE ABRE CON TEXTO
 			if nodo_dialogo:
-				nodo_dialogo.mostrar_texto("¡Usaste la llave y abriste la puerta roja!")
-			# get_tree().change_scene_to_file("res://interior_casa_roja.tscn")
+				nodo_dialogo.mostrar_texto("¡Usaste la Llave Roja y abriste la cerradura!")
+			
+			# Ocultamos la 'E' para que no estorbe mientras lees
+			if has_node("AvisoFlotante"):
+				$AvisoFlotante.hide()
+			
+			# Esperamos 2 segundos para que el jugador alcance a leer el diálogo
+			await get_tree().create_timer(2.0).timeout
+			
+			# 1. Le decimos al Global de dónde venimos
+			Global.destino_puerta = "viene_de_afuera_casa_roja"
+			# 2. Viajamos al interior de la casa
+			get_tree().change_scene_to_file("res://interior_casa_roja.tscn")

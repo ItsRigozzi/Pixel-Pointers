@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b16hfy6wwbjk4"
-path="res://.godot/imported/mellado.png-bbf9f8b973bbec85f028afcd3af6da21.ctex"
+uid="uid://x3nfhipnvp5d"
+path="res://.godot/imported/trofeo_final.png-6a78b973ad357238c679609e3b9abd82.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mellado.png"
-dest_files=["res://.godot/imported/mellado.png-bbf9f8b973bbec85f028afcd3af6da21.ctex"]
+source_file="res://trofeo_final.png"
+dest_files=["res://.godot/imported/trofeo_final.png-6a78b973ad357238c679609e3b9abd82.ctex"]
 
 [params]
 

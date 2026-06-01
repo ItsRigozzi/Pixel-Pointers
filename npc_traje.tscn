@@ -37,6 +37,7 @@ shape = SubResource("CapsuleShape2D_ck57r")
 
 [node name="AvisoFlotante" parent="." unique_id=971796311 instance=ExtResource("3_grxjh")]
 position = Vector2(20, -154.54544)
+scale = Vector2(1.5, 1.5)
 
 [connection signal="body_entered" from="AreaSensor" to="." method="_on_area_sensor_body_entered"]
 [connection signal="body_exited" from="AreaSensor" to="." method="_on_area_sensor_body_exited"]

@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://bradeg1nacm6j"]
+
+[ext_resource type="Texture2D" uid="uid://dyfeymphpu31j" path="res://Room_PUCV.png" id="1_b4gxw"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="2_8dhho"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="3_ltpgu"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="4_bfo87"]
+[ext_resource type="Script" uid="uid://bn63blmscdxd8" path="res://zona_salida.gd" id="5_ltpgu"]
+[ext_resource type="Script" uid="uid://b1ykg1dnm7nqo" path="res://cartel_ascensor.gd" id="6_ppopr"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="7_6r2ly"]
+[ext_resource type="PackedScene" uid="uid://6m4soboh482" path="res://npc_nivel_3.tscn" id="8_6r2ly"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_b4gxw"]
+a = Vector2(-624, 511)
+b = Vector2(-223, 510)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bfo87"]
+size = Vector2(365.5, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nkvcr"]
+size = Vector2(162, 35)
+
+[node name="Interior_Edificio1" type="Node2D" unique_id=1402010217]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=366445859]
+z_index = -1
+texture = ExtResource("1_b4gxw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=2115605791]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=37506692]
+polygon = PackedVector2Array(-266, 544, -262, 475, 688, 478, 697, -173, 656, -167, 621, -196, 623, -242, 611, -278, 479, -283, 476, -228, 408, -221, 165, -210, 162, -242, 126, -241, -2, -242, -2, -215, -17, -197, -25, -183, -59, -168, -62, -170, -83, -192, -102, -239, -265, -241, -270, -271, -294, -275, -300, -246, -321, -226, -384, -221, -542, -231, -624, -231, -684, -254, -679, 503, -605, 494, -603, 542, -724, 536, -714, -526, 713, -497, 713, 531)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1863736390]
+polygon = PackedVector2Array(669, 234, 648, 247, 611, 247, 592, 218, 589, 178, 574, 146, 569, 91, 591, 52, 617, 37, 668, 44, 696, 61, 700, 117, 677, 223)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1783024629]
+polygon = PackedVector2Array(-144, -70, -137, -115, 156, -118, 167, -65, 168, -47, 142, -44, -130, -43, -150, -47)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=494162798]
+polygon = PackedVector2Array(-113, 193, -115, 86, -100, 35, 118, 44, 121, 83, 129, 189)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1887870055]
+polygon = PackedVector2Array(-250, 188, -249, 49, -280, 47, -283, 190)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1907693322]
+polygon = PackedVector2Array(294, 52, 295, 183, 262, 187, 261, 51)
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1852834466]
+polygon = PackedVector2Array(-151, 328, 170, 334, 168, 268, -151, 271)
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2138891131]
+polygon = PackedVector2Array(-279, 48, -297, 22, -305, -9, -313, -31, -326, -65, -325, -116, -311, -144, -277, -169, -245, -172, -211, -160, -191, -123, -186, -88, -186, -41, -202, -2, -208, 28, -221, 49)
+
+[node name="CollisionPolygon2D11" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1256309983]
+position = Vector2(520, 3)
+polygon = PackedVector2Array(-279, 48, -297, 22, -305, -9, -313, -31, -326, -65, -321, -101, -305, -142, -274, -163, -239, -166, -211, -157, -188, -132, -186, -88, -186, -41, -202, -2, -208, 28, -221, 49)
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1504639850]
+polygon = PackedVector2Array(-381, -99, -612, -98, -631, -116, -667, -120, -683, -101, -677, 30, -661, 46, -635, 41, -614, 31, -608, 1, -381, 2)
+
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1126294726]
+polygon = PackedVector2Array(-619, 70, -399, 67, -402, 230, -622, 234)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1943961945]
+shape = SubResource("SegmentShape2D_b4gxw")
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("2_8dhho")]
+y_sort_enabled = true
+position = Vector2(-435, 420)
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=2117430297]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("3_ltpgu")]
+
+[node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("4_bfo87")]
+visible = false
+
+[node name="Pos_Inicio_Puerta1" type="Marker2D" parent="." unique_id=1769986171]
+position = Vector2(-434, 420)
+
+[node name="ZonaSalida" type="Area2D" parent="." unique_id=1933410351]
+position = Vector2(-441, 504)
+script = ExtResource("5_ltpgu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaSalida" unique_id=1909925288]
+position = Vector2(4.25, 4)
+shape = SubResource("RectangleShape2D_bfo87")
+
+[node name="CartelAscensor" type="Area2D" parent="." unique_id=1056713471]
+position = Vector2(546, -288)
+script = ExtResource("6_ppopr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CartelAscensor" unique_id=711041021]
+position = Vector2(2, 7)
+shape = SubResource("RectangleShape2D_nkvcr")
+
+[node name="AvisoFlotante" parent="CartelAscensor" unique_id=971796311 instance=ExtResource("7_6r2ly")]
+position = Vector2(69, -46)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=927553122]
+
+[node name="Npc_Nivel3" parent="." unique_id=559025370 instance=ExtResource("8_6r2ly")]
+y_sort_enabled = true
+position = Vector2(-92, -44)
+scale = Vector2(0.56, 0.56)
+
+[connection signal="body_entered" from="ZonaSalida" to="ZonaSalida" method="_on_body_entered"]
+[connection signal="body_entered" from="CartelAscensor" to="CartelAscensor" method="_on_body_entered"]
+[connection signal="body_exited" from="CartelAscensor" to="CartelAscensor" method="_on_body_exited"]

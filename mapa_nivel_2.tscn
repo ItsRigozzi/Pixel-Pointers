@@ -13,7 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="10_wrbi6"]
 [ext_resource type="Script" uid="uid://cr3tuode8mvgp" path="res://entrada_casa_azul.gd" id="12_p2t2i"]
 [ext_resource type="PackedScene" uid="uid://dvdtukdfh5af5" path="res://jefe_nivel.tscn" id="13_l422g"]
-[ext_resource type="Script" uid="uid://bf7j3gbupduhp" path="res://bloqueo_ruta_x.gd" id="14_5uv4b"]
+[ext_resource type="Script" uid="uid://ckl6qioqh2w3r" path="res://salida_automatica_ruta_k_2d.gd" id="14_5uv4b"]
+[ext_resource type="PackedScene" uid="uid://bstnf8vpv7lkl" path="res://npc_silva.tscn" id="15_ek2yr"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_ivl7w"]
 a = Vector2(945, 135)
@@ -34,9 +35,8 @@ size = Vector2(106, 29.5)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5uv4b"]
 load_path = "res://.godot/imported/Claudio-Cubillos.png-0a05ba24d36f759c97a15e24d54dc334.ctex"
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_j2byg"]
-a = Vector2(950, 116)
-b = Vector2(951, 320)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5uv4b"]
+size = Vector2(30, 153)
 
 [node name="mapa_nivel2" type="Node2D" unique_id=1540481021]
 script = ExtResource("1_vvane")
@@ -165,18 +165,32 @@ nivel_asignado = 2
 texture = SubResource("CompressedTexture2D_5uv4b")
 frame = 8
 
-[node name="BloqueoRutaX" type="StaticBody2D" parent="." unique_id=1200923350]
+[node name="SalidaAutomaticaRutaK" type="Area2D" parent="." unique_id=1820271744]
+position = Vector2(-950, 36)
 script = ExtResource("14_5uv4b")
 
-[node name="salida" type="CollisionShape2D" parent="BloqueoRutaX" unique_id=660728577]
-position = Vector2(-1895, -176)
-shape = SubResource("SegmentShape2D_j2byg")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaAutomaticaRutaK" unique_id=1916265423]
+position = Vector2(5, 0.5)
+shape = SubResource("RectangleShape2D_5uv4b")
+
+[node name="Npc_silva" parent="." unique_id=1750436373 instance=ExtResource("15_ek2yr")]
+position = Vector2(-857, 32)
+scale = Vector2(0.55, 0.55)
+rol_npc = "guardia"
+
+[node name="Sprite2D" parent="Npc_silva" index="0" unique_id=1769994075]
+frame = 8
+
+[node name="Pos_Inicio_DesdeRutaK" type="Marker2D" parent="." unique_id=226123498]
+position = Vector2(-912, 51)
 
 [connection signal="body_entered" from="EntradaHerreria" to="EntradaHerreria" method="_on_body_entered"]
 [connection signal="body_exited" from="EntradaHerreria" to="EntradaHerreria" method="_on_body_exited"]
 [connection signal="body_entered" from="EntradaCasaAzul" to="EntradaCasaAzul" method="_on_body_entered"]
 [connection signal="body_exited" from="EntradaCasaAzul" to="EntradaCasaAzul" method="_on_body_exited"]
+[connection signal="body_entered" from="SalidaAutomaticaRutaK" to="SalidaAutomaticaRutaK" method="_on_body_entered"]
 
 [editable path="PuertaFruteria"]
 [editable path="RegresoNivel1"]
 [editable path="JefeNivel"]
+[editable path="Npc_silva"]

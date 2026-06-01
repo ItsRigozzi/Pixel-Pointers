@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://bstnf8vpv7lkl"]
+
+[ext_resource type="Script" uid="uid://qc2os76p1kxf" path="res://npc_silva.gd" id="1_aws1a"]
+[ext_resource type="Texture2D" uid="uid://bgpc8om1pht3s" path="res://profesor1.png" id="1_rab42"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="2_aws1a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stco4"]
+size = Vector2(136, 238)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pxg12"]
+radius = 97.0
+height = 256.0
+
+[node name="Npc_silva" type="StaticBody2D" unique_id=1750436373]
+script = ExtResource("1_aws1a")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1769994075]
+position = Vector2(0, 1)
+texture = ExtResource("1_rab42")
+hframes = 4
+vframes = 4
+region_enabled = true
+region_rect = Rect2(148.52899, 21.356127, 1132.6877, 975.7663)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=760027636]
+position = Vector2(-75, -5)
+shape = SubResource("RectangleShape2D_stco4")
+
+[node name="AreaSensor" type="Area2D" parent="." unique_id=483385177]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaSensor" unique_id=1250911132]
+position = Vector2(-74, -6)
+shape = SubResource("CapsuleShape2D_pxg12")
+
+[node name="AvisoFlotante" parent="." unique_id=971796311 instance=ExtResource("2_aws1a")]
+position = Vector2(26, -131)
+
+[connection signal="body_entered" from="AreaSensor" to="." method="_on_area_sensor_body_entered"]
+[connection signal="body_exited" from="AreaSensor" to="." method="_on_area_sensor_body_exited"]

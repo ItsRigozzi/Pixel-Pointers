@@ -6,11 +6,9 @@ func _ready():
 	if has_node("AvisoFlotante"):
 		$AvisoFlotante.hide()
 		
-	# Escuchamos cuando el jugador apruebe el examen
 	Global.examen_aprobado.connect(_al_aprobar_examen)
 
 func _process(_delta):
-	# Si presionas la E y estás cerca
 	if jugador_cerca and Input.is_action_just_pressed("interactuar"):
 		abrir_cofre()
 
@@ -21,20 +19,18 @@ func abrir_cofre():
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 	var pantalla_examen = get_tree().current_scene.get_node_or_null("CapaInterfaz/PantallaExamen")
 	
-	# Usamos la memoria GLOBAL. No importa el orden.
 	if Global.cofre_herreria_abierto == false:
 		if pantalla_examen:
 			pantalla_examen.iniciar_examen_para_nivel(2)
-		else:
-			print("ERROR: Falta la PantallaExamen en la escena de la Herrería")
 	else:
 		if nodo_dialogo:
 			nodo_dialogo.mostrar_texto("El cofre está vacío. Ya tomaste lo que había dentro.")
 
 func _al_aprobar_examen():
-	# Si ganas el examen y estás tocando este cofre específico
-	if jugador_cerca and Global.cofre_herreria_abierto == false:
-		Global.cofre_herreria_abierto = true # Guardamos en la memoria global
+	# Eliminamos el "if jugador_cerca" para que la recompensa se registre
+	# aunque el jugador se haya alejado del cofre después de responder.
+	if Global.cofre_herreria_abierto == false:
+		Global.cofre_herreria_abierto = true 
 		
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
@@ -44,7 +40,6 @@ func _al_aprobar_examen():
 func _on_body_entered(body):
 	if body.name == "Jugador":
 		jugador_cerca = true
-		# Solo mostramos la E si el cofre no ha sido abierto
 		if has_node("AvisoFlotante") and Global.cofre_herreria_abierto == false:
 			$AvisoFlotante.show()
 
@@ -56,4 +51,4 @@ func _on_body_exited(body):
 			
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
-			nodo_dialogo.hide()
+			nodo_dialogo.cerrar_dialogo()

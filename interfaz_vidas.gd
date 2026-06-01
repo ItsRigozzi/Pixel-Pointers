@@ -1,30 +1,26 @@
 extends CanvasLayer
 
+# Ahora sí busca el nombre exacto de tu nodo
 @onready var contenedor = $ContenedorCorazones
-
-# Cargamos tus imágenes para usarlas en el código
-var corazon_rojo = preload("res://corazon_rojo.tres")
-var corazon_gris = preload("res://corazon_gris.tres")
+var corazon_lleno = preload("res://corazon_rojo.tres")
+var corazon_vacio = preload("res://corazon_gris.tres")
 
 func _ready():
 	actualizar_vidas()
 
 func actualizar_vidas():
-	# Agarramos los 5 corazones que creaste en una lista
-	var lista_corazones = contenedor.get_children()
-	
-	for i in range(lista_corazones.size()):
-		# 1. Si el corazón está dentro del máximo permitido (ej: 5), lo mostramos
-		if i < Global.vidas_maximas:
-			lista_corazones[i].show()
-			
-			# 2. Si el número de corazón es menor a tus vidas actuales, lo pintamos ROJO
-			if i < Global.vidas_actuales:
-				lista_corazones[i].texture = corazon_rojo
-			# Si no tienes esa vida, lo pintamos GRIS (corazón vacío)
-			else:
-				lista_corazones[i].texture = corazon_gris
-				
-		# 3. Si por alguna razón sobran corazones (ej: bajaste el máximo a 3), los ocultamos
+	# 1. Limpiamos todos los corazones viejos de la pantalla
+	for hijo in contenedor.get_children():
+		hijo.queue_free()
+		
+	# 2. Dibujamos los corazones desde cero basados en la salud actual y máxima
+	for i in range(Global.vidas_maximas):
+		var nuevo_corazon = TextureRect.new()
+		
+		# Si 'i' es menor que las vidas actuales, el corazón está lleno. Si no, está vacío.
+		if i < Global.vidas_actuales:
+			nuevo_corazon.texture = corazon_lleno
 		else:
-			lista_corazones[i].hide()
+			nuevo_corazon.texture = corazon_vacio
+			
+		contenedor.add_child(nuevo_corazon)

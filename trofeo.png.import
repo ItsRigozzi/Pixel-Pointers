@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7nanrsgflc7d"
-path="res://.godot/imported/Claudio-Cubillos.png-0a05ba24d36f759c97a15e24d54dc334.ctex"
+uid="uid://cppg4bdklnvqb"
+path="res://.godot/imported/trofeo.png-8dbad0ed03164858e1e4c1e610499361.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Claudio-Cubillos.png"
-dest_files=["res://.godot/imported/Claudio-Cubillos.png-0a05ba24d36f759c97a15e24d54dc334.ctex"]
+source_file="res://trofeo.png"
+dest_files=["res://.godot/imported/trofeo.png-8dbad0ed03164858e1e4c1e610499361.ctex"]
 
 [params]
 

@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://c1rbgrssp7tri"]
+
+[ext_resource type="Texture2D" uid="uid://bt8ukc7o2gxj0" path="res://Room_2.png" id="2_0kddb"]
+[ext_resource type="Script" uid="uid://dqi0ow26kp717" path="res://salida_casa.gd" id="2_xhq8m"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_xdgn2"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="5_5vupm"]
+[ext_resource type="Script" uid="uid://bqpwn7ektkgf0" path="res://libro_recompensa.gd" id="6_0kddb"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="6_gtpxv"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="6_qx8c5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cuy3d"]
+size = Vector2(271, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhq8m"]
+size = Vector2(115, 92)
+
+[node name="InteriorCasaRoja" type="Node2D" unique_id=680555522]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1083431709]
+z_index = -1
+texture = ExtResource("2_0kddb")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1969606379]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=275019325]
+build_mode = 1
+polygon = PackedVector2Array(-178, 534, -178, 481, 612, 487, 612, -224, 604, -279, 310, -275, 308, -357, 76, -364, 76, -300, -616, -300, -616, 203, -590, 185, -562, 172, -535, 178, -512, 186, -484, 225, -486, 275, -480, 312, -493, 355, -501, 386, -519, 417, -579, 425, -620, 444, -616, 489, -374, 474, -374, 530, -782, 503, -725, -514, 855, -453, 707, 519)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1548745819]
+position = Vector2(-5, -3)
+polygon = PackedVector2Array(-80, 156, 198, 158, 196, -78, -74, -77)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=630478961]
+polygon = PackedVector2Array(-219, 170, -223, 39, -191, 45, -193, 166)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1846720303]
+position = Vector2(532, -6)
+polygon = PackedVector2Array(-219, 170, -223, 39, -191, 45, -193, 166)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1951568149]
+position = Vector2(532, -138)
+polygon = PackedVector2Array(-219, 170, -223, 39, -191, 45, -193, 166)
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1905274553]
+position = Vector2(-4, -142)
+polygon = PackedVector2Array(-219, 170, -223, 39, -191, 45, -193, 166)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=845061631]
+
+[node name="SalidaCasa" type="Area2D" parent="." unique_id=773051375]
+position = Vector2(-282, 511)
+script = ExtResource("2_xhq8m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SalidaCasa" unique_id=2046807541]
+position = Vector2(9.5, 8.5)
+shape = SubResource("RectangleShape2D_cuy3d")
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=700737093]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("4_xdgn2")]
+
+[node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("5_5vupm")]
+visible = false
+
+[node name="Pos_Entrada" type="Marker2D" parent="." unique_id=1204653629]
+position = Vector2(-279, 464)
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("6_gtpxv")]
+y_sort_enabled = true
+position = Vector2(-280, 423)
+scale = Vector2(1.4, 1.4)
+
+[node name="LibroRecompensa" type="Area2D" parent="." unique_id=1501179760]
+position = Vector2(3, -5)
+script = ExtResource("6_0kddb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LibroRecompensa" unique_id=1383108754]
+position = Vector2(-33, -45)
+shape = SubResource("RectangleShape2D_xhq8m")
+
+[node name="AvisoFlotante" parent="LibroRecompensa" unique_id=971796311 instance=ExtResource("6_qx8c5")]
+position = Vector2(55, -93)
+
+[connection signal="body_entered" from="SalidaCasa" to="SalidaCasa" method="_on_body_entered"]
+[connection signal="body_entered" from="LibroRecompensa" to="LibroRecompensa" method="_on_body_entered"]
+[connection signal="body_exited" from="LibroRecompensa" to="LibroRecompensa" method="_on_body_exited"]

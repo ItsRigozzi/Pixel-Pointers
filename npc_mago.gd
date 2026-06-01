@@ -3,11 +3,9 @@ extends StaticBody2D
 var jugador_cerca = false
 var ya_se_presento = false 
 
-# Esto busca la "E" automáticamente, sin importar si es hijo del Mago o del Sensor
 @onready var aviso_e = find_child("AvisoFlotante")
 
 func _ready():
-	# Ahora sí la encuentra y la apaga correctamente al iniciar la escena
 	if aviso_e:
 		aviso_e.hide()
 		
@@ -64,12 +62,16 @@ func girar_npc(direccion):
 		pantalla_examen.iniciar_examen_para_nivel(2)
 
 func _al_aprobar_examen():
-	if jugador_cerca and Global.llave_casa_roja == false:
+	# Eliminado "if not jugador_cerca" para que la entrega sea garantizada
+	if Global.llave_casa_roja == false:
 		Global.llave_casa_roja = true
+		
+		var imagen_llave = load("res://llave.png")
+		AnimacionMedalla.mostrar_recompensa(imagen_llave, "¡Has obtenido la Llave!")
 		
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
-			nodo_dialogo.mostrar_texto("Tienes una mente afilada. Toma la LLAVE ROJA.")
+			nodo_dialogo.mostrar_texto("Tienes una mente afilada. Toma esta LLAVE. Quizás te sirva en el pueblo anterior.")
 
 # --- SEÑALES DEL SENSOR ---
 func _on_area_sensor_body_entered(body):
@@ -86,4 +88,4 @@ func _on_area_sensor_body_exited(body):
 			
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
-			nodo_dialogo.hide()
+			nodo_dialogo.cerrar_dialogo()

@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bgx30dyo0pn7e"]
+
+[ext_resource type="Texture2D" uid="uid://bdcnkvk2al2uo" path="res://edificio2.png" id="1_l1g4p"]
+[ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="2_2dt50"]
+[ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="3_n0vuq"]
+[ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="4_085ug"]
+[ext_resource type="Script" uid="uid://buo2d6jhuqjbc" path="res://zona_salida_edificio2.gd" id="5_085ug"]
+[ext_resource type="Script" uid="uid://bmljml3w6vpei" path="res://cartel_ascensor_2.gd" id="6_2024f"]
+[ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="6_n8txy"]
+[ext_resource type="PackedScene" uid="uid://dgd8q2qcnhht3" path="res://npc_traje.tscn" id="8_s36nh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n8txy"]
+size = Vector2(202, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s36nh"]
+size = Vector2(179, 27)
+
+[node name="Interior_Edificio2" type="Node2D" unique_id=1694955327]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=154292433]
+z_index = -1
+texture = ExtResource("1_l1g4p")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1565479194]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=515346294]
+polygon = PackedVector2Array(-366, 537, -366, 479, 687, 468, 685, 410, 652, 406, 600, 401, 573, 375, 566, 348, 560, 321, 552, 275, 554, 237, 569, 207, 585, 187, 628, 175, 676, 169, 691, 151, 684, -240, 403, -244, 380, -263, 266, -268, 261, -221, 248, -183, 195, -182, 151, -197, 143, -260, -36, -263, -39, -221, -55, -185, -91, -179, -130, -190, -156, -240, -212, -250, -222, -192, -301, -126, -561, -132, -651, -133, -679, -145, -686, 185, -660, 151, -603, 139, -547, 141, -509, 170, -510, 229, -483, 195, -428, 196, -395, 213, -379, 246, -383, 295, -381, 333, -393, 364, -452, 386, -544, 377, -625, 378, -672, 370, -676, 406, -677, 470, -561, 468, -562, 535, -706, 534, -696, -520, 720, -507, 712, 539)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=2135973718]
+polygon = PackedVector2Array(-242, 298, -242, 88, -242, 61, -247, 36, -250, -3, -231, -24, -211, -42, -174, -42, -157, -23, -158, 14, -158, 62, -183, 85, -213, 94, -215, 302)
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1226396287]
+polygon = PackedVector2Array(233, 303, 268, 303, 263, 84, 268, 54, 272, 22, 259, -24, 237, -45, 213, -44, 193, -24, 183, 16, 177, 53, 195, 85, 231, 96)
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1062286568]
+polygon = PackedVector2Array(-130, 1, 152, 1, 150, -67, -133, -68)
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=417168070]
+polygon = PackedVector2Array(-89, 289, 117, 286, 117, 118, -92, 118)
+
+[node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("2_2dt50")]
+y_sort_enabled = true
+position = Vector2(-464, 442)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=783600877]
+
+[node name="Pos_Inicio_Puerta2" type="Marker2D" parent="." unique_id=1908920703]
+position = Vector2(-464, 442)
+
+[node name="CapaInterfaz" type="CanvasLayer" parent="." unique_id=2117107051]
+
+[node name="CajaDialogo" parent="CapaInterfaz" unique_id=125224071 instance=ExtResource("3_n0vuq")]
+
+[node name="PantallaExamen" parent="CapaInterfaz" unique_id=1288475170 instance=ExtResource("4_085ug")]
+visible = false
+
+[node name="ZonaSalida" type="Area2D" parent="." unique_id=268831166]
+position = Vector2(-476, 517)
+script = ExtResource("5_085ug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZonaSalida" unique_id=2076558968]
+position = Vector2(10, -1.5)
+shape = SubResource("RectangleShape2D_n8txy")
+
+[node name="CartelAscensor2" type="Area2D" parent="." unique_id=158928281]
+position = Vector2(38, -233)
+script = ExtResource("6_2024f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CartelAscensor2" unique_id=649319365]
+position = Vector2(17.5, -15)
+shape = SubResource("RectangleShape2D_s36nh")
+
+[node name="AvisoFlotante" parent="CartelAscensor2" unique_id=971796311 instance=ExtResource("6_n8txy")]
+position = Vector2(117, -65)
+
+[node name="NPC_traje" parent="." unique_id=775074149 instance=ExtResource("8_s36nh")]
+y_sort_enabled = true
+position = Vector2(574, -208)
+nivel_ubicacion = 3
+
+[node name="Sprite2D" parent="NPC_traje" index="0" unique_id=1906109045]
+frame = 12
+
+[connection signal="body_entered" from="ZonaSalida" to="ZonaSalida" method="_on_body_entered"]
+[connection signal="body_entered" from="CartelAscensor2" to="CartelAscensor2" method="_on_body_entered"]
+[connection signal="body_exited" from="CartelAscensor2" to="CartelAscensor2" method="_on_body_exited"]
+
+[editable path="NPC_traje"]
