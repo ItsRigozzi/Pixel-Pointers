@@ -10,6 +10,7 @@ extends CanvasLayer
 @onready var numero_progreso = $CartelProgreso/NumeroProgreso
 @onready var boton_entendido = $BotonEntendido
 
+var tiempo_inicio_pregunta = 0.0
 var pregunta_actual = {}
 var respuesta_correcta_texto = ""
 var opcion_a = ""
@@ -45,7 +46,9 @@ func iniciar_examen():
 	cartel_progreso.hide()
 	
 	show()
-	get_tree().paused = true 
+	get_tree().paused = true
+	# NUEVO: Guardamos el tiempo exacto en el que apareció la pregunta
+	tiempo_inicio_pregunta = Time.get_ticks_msec() / 1000.0
 
 func cargar_textos_en_pantalla():
 	texto_pregunta.text = pregunta_actual["pregunta"]
@@ -59,13 +62,29 @@ func cargar_textos_en_pantalla():
 	opcion_b = opciones[1]
 	opcion_c = opciones[2]
 	
-	# AQUÍ ESTÁ EL CAMBIO: Asignamos el texto directamente, sin la letra
+	# Asignamos el texto directamente, sin la letra
 	texto_a.text = opcion_a
 	texto_b.text = opcion_b
 	texto_c.text = opcion_c
 
 func evaluar_respuesta(texto_elegido):
+	# 1. Calculamos cuánto se demoró
+	var tiempo_fin = Time.get_ticks_msec() / 1000.0
+	var tiempo_tomado = snapped(tiempo_fin - tiempo_inicio_pregunta, 0.01) # Redondeado a 2 decimales
+	
+	# 2. Vemos si acertó
+	var fue_correcta = false
 	if texto_elegido == respuesta_correcta_texto:
+		fue_correcta = true
+	
+	# 3. Preparamos el texto con las 3 alternativas juntas para el log
+	var todas_las_alternativas = "A) " + opcion_a + " | B) " + opcion_b + " | C) " + opcion_c
+	
+	# 4. Enviamos toda esta información al Global para que la escriba en el Excel
+	Global.registrar_interaccion(pregunta_actual["pregunta"], todas_las_alternativas, texto_elegido, fue_correcta, tiempo_tomado)
+	
+	# 5. Seguimos con tu lógica normal del juego
+	if fue_correcta:
 		victoria()
 	else:
 		derrota()
@@ -102,6 +121,17 @@ func derrota():
 	$BotonA.hide()
 	$BotonB.hide()
 	$BotonC.hide()
+	
+	# ==========================================
+	# NUEVO: REGISTRO INVISIBLE DE ERRORES
+	# ==========================================
+	if Global.nivel_actual == 1:
+		Global.errores_nivel_1 += 1
+	elif Global.nivel_actual == 2:
+		Global.errores_nivel_2 += 1
+	elif Global.nivel_actual == 3:
+		Global.errores_nivel_3 += 1
+	# ==========================================
 	
 	# Si NO estamos en modo seguro, te quitamos vida
 	if Global.examen_seguro == false:

@@ -58,7 +58,13 @@ func _on_continuar_pressed():
 	reanudar_juego()
 
 func _on_guardar_partida_pressed():
-	print("El sistema de guardado está en construcción...")
+	# Llama a la función que acabamos de crear
+	Global.guardar_partida()
+	
+	# Opcional: Mostrarle al jugador que se guardó cambiando el texto temporalmente
+	$PanelDerecho/VBoxContainer/GuardarPartida.text = "¡Partida Guardada!"
+	await get_tree().create_timer(2.0).timeout
+	$PanelDerecho/VBoxContainer/GuardarPartida.text = "Guardar Partida"
 
 func _on_salir_del_juego_pressed():
 	get_tree().quit()

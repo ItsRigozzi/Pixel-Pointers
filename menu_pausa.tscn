@@ -96,7 +96,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 text = "CONTINUAR"
 
-[node name="Guardar Partida" type="Button" parent="PanelDerecho/VBoxContainer" unique_id=1591397778]
+[node name="GuardarPartida" type="Button" parent="PanelDerecho/VBoxContainer" unique_id=1591397778]
 custom_minimum_size = Vector2(0, 61)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -170,5 +170,5 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("7_atpth")
 
 [connection signal="pressed" from="PanelDerecho/VBoxContainer/Continuar" to="." method="_on_continuar_pressed"]
-[connection signal="pressed" from="PanelDerecho/VBoxContainer/Guardar Partida" to="." method="_on_guardar_partida_pressed"]
+[connection signal="pressed" from="PanelDerecho/VBoxContainer/GuardarPartida" to="." method="_on_guardar_partida_pressed"]
 [connection signal="pressed" from="PanelDerecho/VBoxContainer/Salir del Juego" to="." method="_on_salir_del_juego_pressed"]

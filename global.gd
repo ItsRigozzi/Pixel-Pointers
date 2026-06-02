@@ -1,5 +1,9 @@
 extends Node
 
+var controles = "wasd" # Por defecto empezarán con WASD
+var errores_nivel_1 = 0
+var errores_nivel_2 = 0
+var errores_nivel_3 = 0
 var trofeo_final_obtenido = false
 var npc_traje_n3_respondido = false
 var silva_ruta_k_respondida = false # Recuerda si ya vencimos a Silva (ya sea por cura o trofeo)
@@ -378,6 +382,115 @@ func curar_vida(cantidad):
 			vidas_actuales = vidas_maximas
 			
 	InterfazVidas.actualizar_vidas()
+# --- SISTEMA DE GUARDADO ---
+const RUTA_GUARDADO = "user://partida.save"
 
+func guardar_partida():
+	# Diccionario ACTUALIZADO con todos los eventos del juego
+	var datos = {
+		"insignias": insignias,
+		"tiempo_jugado": tiempo_jugado,
+		"llave_casa_roja": llave_casa_roja,
+		"trofeo_pucv_obtenido": trofeo_pucv_obtenido,
+		"trofeo_final_obtenido": trofeo_final_obtenido,
+		"nivel_1_aprobado": nivel_1_aprobado,
+		"errores_nivel_1": errores_nivel_1,
+		"errores_nivel_2": errores_nivel_2,
+		"errores_nivel_3": errores_nivel_3,
+		"preguntas_respondidas_nivel": preguntas_respondidas_nivel,
+		"npc_nivel3_respondido": npc_nivel3_respondido,
+		"npc_traje_n3_respondido": npc_traje_n3_respondido,
+		
+		# --- EVENTOS Y OBJETOS NUEVOS AÑADIDOS ---
+		"silva_ruta_k_respondida": silva_ruta_k_respondida,
+		"hitos_nivel_2_completados": hitos_nivel_2_completados,
+		"recompensa_casa_roja_reclamada": recompensa_casa_roja_reclamada,
+		"cofre_herreria_abierto": cofre_herreria_abierto,
+		"rubia_dio_fruta_nivel": rubia_dio_fruta_nivel,
+		"vidas_maximas": vidas_maximas,
+		"vidas_actuales": vidas_actuales,
+		"nivel_actual": nivel_actual,
+		"controles": controles
+	}
+	
+	var archivo = FileAccess.open(RUTA_GUARDADO, FileAccess.WRITE)
+	archivo.store_string(JSON.stringify(datos))
+	archivo.close()
+	print("Partida guardada con éxito en: ", RUTA_GUARDADO)
+
+func cargar_partida():
+	if FileAccess.file_exists(RUTA_GUARDADO):
+		var archivo = FileAccess.open(RUTA_GUARDADO, FileAccess.READ)
+		var contenido = archivo.get_as_text()
+		archivo.close()
+		
+		var datos = JSON.parse_string(contenido)
+		if datos:
+			insignias = datos.get("insignias", 0)
+			tiempo_jugado = datos.get("tiempo_jugado", 0.0)
+			llave_casa_roja = datos.get("llave_casa_roja", false)
+			trofeo_pucv_obtenido = datos.get("trofeo_pucv_obtenido", false)
+			trofeo_final_obtenido = datos.get("trofeo_final_obtenido", false)
+			nivel_1_aprobado = datos.get("nivel_1_aprobado", false)
+			errores_nivel_1 = datos.get("errores_nivel_1", 0)
+			errores_nivel_2 = datos.get("errores_nivel_2", 0)
+			errores_nivel_3 = datos.get("errores_nivel_3", 0)
+			preguntas_respondidas_nivel = datos.get("preguntas_respondidas_nivel", 0)
+			npc_nivel3_respondido = datos.get("npc_nivel3_respondido", false)
+			npc_traje_n3_respondido = datos.get("npc_traje_n3_respondido", false)
+			
+			# --- CARGAMOS LOS EVENTOS Y OBJETOS NUEVOS ---
+			silva_ruta_k_respondida = datos.get("silva_ruta_k_respondida", false)
+			hitos_nivel_2_completados = datos.get("hitos_nivel_2_completados", 0)
+			recompensa_casa_roja_reclamada = datos.get("recompensa_casa_roja_reclamada", false)
+			cofre_herreria_abierto = datos.get("cofre_herreria_abierto", false)
+			rubia_dio_fruta_nivel = datos.get("rubia_dio_fruta_nivel", false)
+			vidas_maximas = datos.get("vidas_maximas", 3)
+			vidas_actuales = datos.get("vidas_actuales", 3)
+			nivel_actual = datos.get("nivel_actual", 1)
+			
+			controles = datos.get("controles", "wasd")
+			print("Partida cargada correctamente.")
+			return true
+	
+	print("No hay partida guardada.")
+	return false
+# ==========================================
+# SISTEMA DE REGISTRO DE DATOS (LOGS)
+# ==========================================
+const RUTA_LOG = "user://pixel_pointers_log.csv"
+var id_jugador_actual = "jugador_anonimo" # Idealmente, esto se pediría al inicio
+
+func inicializar_log():
+	# Si el archivo NO existe, lo creamos y le ponemos la cabecera (los títulos de las columnas)
+	if not FileAccess.file_exists(RUTA_LOG):
+		var archivo = FileAccess.open(RUTA_LOG, FileAccess.WRITE)
+		var cabecera = "timestamp,idJugador,nivel,pregunta,alternativas,respuestaJugador,siFueCorrectaoNo,tiempoDeRespuesta\n"
+		archivo.store_string(cabecera)
+		archivo.close()
+		print("Archivo Log creado exitosamente.")
+
+func registrar_interaccion(pregunta, alternativas_str, respuesta_jugador, fue_correcta, tiempo_segundos):
+	# Obtenemos la fecha y hora exacta del sistema operativo
+	var tiempo = Time.get_datetime_dict_from_system()
+	var timestamp = str(tiempo.year) + "-" + str(tiempo.month).pad_zeros(2) + "-" + str(tiempo.day).pad_zeros(2) + " " + str(tiempo.hour).pad_zeros(2) + ":" + str(tiempo.minute).pad_zeros(2) + ":" + str(tiempo.second).pad_zeros(2)
+	
+	# Convertimos el booleano (true/false) a texto (1/0 o texto claro)
+	var correcta_str = "1" if fue_correcta else "0"
+	
+	# Construimos la línea que se añadirá al Excel (separada por comas)
+	# Limpiamos las comas internas de los textos para que no rompan el formato CSV
+	var pregunta_limpia = pregunta.replace(",", ";") 
+	var alternativas_limpias = alternativas_str.replace(",", ";")
+	var respuesta_limpia = respuesta_jugador.replace(",", ";")
+	
+	var nueva_linea = timestamp + "," + id_jugador_actual + "," + str(nivel_actual) + "," + pregunta_limpia + "," + alternativas_limpias + "," + respuesta_limpia + "," + correcta_str + "," + str(tiempo_segundos) + "\n"
+	
+	# Abrimos el archivo en modo READ_WRITE (para no borrar lo anterior) y escribimos al final
+	var archivo = FileAccess.open(RUTA_LOG, FileAccess.READ_WRITE)
+	archivo.seek(archivo.get_length()) # Movemos el "cursor" al final del documento
+	archivo.store_string(nueva_linea)
+	archivo.close()
+	print("Interacción registrada en el log.")
 func _process(delta):
 	tiempo_jugado += delta

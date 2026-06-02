@@ -34,6 +34,20 @@ offset_top = 425.0
 offset_right = 1225.0
 offset_bottom = 515.0
 
+[node name="BotonContinuar" type="Button" parent="." unique_id=1425109467]
+modulate = Color(9.7895565, 9.7895565, 9.7895565, 1)
+layout_mode = 0
+offset_left = 687.0
+offset_top = 790.0
+offset_right = 1233.0
+offset_bottom = 884.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_font_sizes/font_size = 50
+text = "CONTINUAR"
+flat = true
+
 [node name="BotonConfig" type="Button" parent="." unique_id=136291823]
 modulate = Color(9.7895565, 9.7895565, 9.7895565, 0.3882353)
 show_behind_parent = true
@@ -52,4 +66,115 @@ offset_top = 691.0
 offset_right = 1223.0
 offset_bottom = 777.0
 
+[node name="PanelComoJugar" type="ColorRect" parent="." unique_id=723100107]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -235.0
+offset_right = 563.0
+offset_bottom = 255.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9529412, 0.8862745, 0.7176471, 1)
+
+[node name="Label" type="Label" parent="PanelComoJugar" unique_id=415346240]
+layout_mode = 0
+offset_left = 1.5
+offset_top = 1.0
+offset_right = 1080.5
+offset_bottom = 943.0
+theme_override_colors/font_color = Color(0.14016375, 0.20514065, 0.9780106, 1)
+text = "Con la tecla E interactúas con los personajes y objetos.
+Usa la tecla ESC para abrir el Menú de Pausa. 
+Desde ahí puedes salir, guardar tu progreso y ver los objetos que has conseguido.
+
+Recuerda que el boton de configurar puedes cambiar las teclas con cual podras mover al personaje.
+
+NOTA IMPORTANTE SOBRE TU PROGRESO:
+Cada vez que presiones 'Salir del Juego', se abrirá automáticamente una carpeta de tu computadora. Si vas a seguir jugando más tarde, simplemente cierra esa ventana. ¡Únicamente cuando superes el juego por completo, envíanos el archivo 'pixel_pointers_log.csv' que aparece ahí para la investigación!"
+autowrap_mode = 2
+
+[node name="BotonVolverCJ" type="Button" parent="PanelComoJugar" unique_id=1105182574]
+layout_mode = 0
+offset_left = 908.0
+offset_top = 405.0
+offset_right = 1079.0
+offset_bottom = 488.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 20
+text = "VOLVER"
+
+[node name="PanelConfig" type="ColorRect" parent="." unique_id=222412670]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -520.0
+offset_top = -235.0
+offset_right = 563.0
+offset_bottom = 255.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.9529412, 0.8862745, 0.7176471, 1)
+
+[node name="BotonVolverConfig" type="Button" parent="PanelConfig" unique_id=328528578]
+layout_mode = 0
+offset_left = 908.0
+offset_top = 405.0
+offset_right = 1079.0
+offset_bottom = 488.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 20
+text = "VOLVER"
+
+[node name="BotonWASD" type="Button" parent="PanelConfig" unique_id=1301072104]
+layout_mode = 0
+offset_left = 226.0
+offset_top = 171.0
+offset_right = 397.0
+offset_bottom = 254.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 20
+text = "Usar W-A-S-D"
+
+[node name="BotonFlechas" type="Button" parent="PanelConfig" unique_id=289539666]
+layout_mode = 0
+offset_left = 637.0
+offset_top = 170.0
+offset_right = 808.0
+offset_bottom = 253.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 9
+theme_override_font_sizes/font_size = 20
+text = "Usar Flechas"
+
+[node name="Label" type="Label" parent="PanelConfig" unique_id=257170414]
+layout_mode = 0
+offset_left = 163.0
+offset_top = 71.0
+offset_right = 917.0
+offset_bottom = 160.0
+theme_override_colors/font_color = Color(0.17469019, 0.24416187, 0.57962865, 1)
+text = "AJUSTES DE MOVIMIENTO
+¿Cómo prefieres jugar? Elige tu estilo de controles favorito haciendo clic en uno de los botones abajo. (Por defecto se usarán las teclas W-A-S-D)."
+autowrap_mode = 2
+
 [connection signal="pressed" from="BotonIniciar" to="." method="_on_boton_iniciar_pressed"]
+[connection signal="pressed" from="BotonContinuar" to="." method="_on_boton_continuar_pressed"]
+[connection signal="pressed" from="BotonConfig" to="." method="_on_boton_config_pressed"]
+[connection signal="pressed" from="BotonComoJugar" to="." method="_on_boton_como_jugar_pressed"]
+[connection signal="pressed" from="PanelComoJugar/BotonVolverCJ" to="." method="_on_boton_volver_cj_pressed"]
+[connection signal="pressed" from="PanelConfig/BotonVolverConfig" to="." method="_on_boton_volver_config_pressed"]
+[connection signal="pressed" from="PanelConfig/BotonWASD" to="." method="_on_boton_wasd_pressed"]
+[connection signal="pressed" from="PanelConfig/BotonFlechas" to="." method="_on_boton_flechas_pressed"]
