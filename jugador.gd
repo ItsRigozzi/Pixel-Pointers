@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
-const SPEED = 300.0
+# --- NUEVAS VELOCIDADES ---
+var velocidad_normal = 400.0
+var velocidad_sprint = 600.0 # Ajusta este número si quieres que corra más o menos rápido
 
 func _ready():
 	# --- VIAJES DE LA RUTA K ---
@@ -61,7 +63,13 @@ func _physics_process(_delta):
 	if Global.bloqueado == false:
 		direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	
-	velocity = direction * SPEED
+	# --- EL TRUCO DEL SPRINT ---
+	var velocidad_actual = velocidad_normal
+	if Input.is_physical_key_pressed(KEY_SHIFT):
+		velocidad_actual = velocidad_sprint
+	
+	# Aplicamos la velocidad calculada
+	velocity = direction * velocidad_actual
 	
 	if direction != Vector2.ZERO:
 		if abs(direction.x) > abs(direction.y):

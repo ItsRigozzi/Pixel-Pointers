@@ -46,8 +46,8 @@ visible = false
 
 [node name="CofrePregunta" parent="." unique_id=257275648 instance=ExtResource("5_6eqr4")]
 y_sort_enabled = true
-position = Vector2(675, -176)
-scale = Vector2(1.25, 1.25)
+position = Vector2(663, -172)
+scale = Vector2(1.4, 1.4)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=667975035]
 

@@ -67,4 +67,14 @@ func _on_guardar_partida_pressed():
 	$PanelDerecho/VBoxContainer/GuardarPartida.text = "Guardar Partida"
 
 func _on_salir_del_juego_pressed():
+	# Buscamos la ruta de la carpeta oculta
+	var ruta_absoluta = ProjectSettings.globalize_path("user://")
+	
+	# Le pedimos a Windows que la abra
+	OS.shell_open(ruta_absoluta)
+	
+	# Le decimos al juego que espere medio segundo
+	await get_tree().create_timer(0.5).timeout
+	
+	# Cerramos el juego
 	get_tree().quit()

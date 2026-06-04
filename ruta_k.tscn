@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://yrm2xg2ua1yq"]
 
-[ext_resource type="Texture2D" uid="uid://c2wrf0djmhk8a" path="res://rutaK.png" id="1_xm7mm"]
+[ext_resource type="Texture2D" uid="uid://vilv8ysro03u" path="res://rutaK_1.png" id="1_inlfa"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="2_022lw"]
 [ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="3_ihg7f"]
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="4_hwjaa"]
@@ -9,8 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://ck7b1rgrnd84" path="res://aviso_flotante.tscn" id="6_ihg7f"]
 [ext_resource type="Script" uid="uid://s86nwwv8buok" path="res://salida_automatica_n_3.gd" id="8_inlfa"]
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_inlfa"]
+a = Vector2(946, 202)
+b = Vector2(949, -195)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_022lw"]
-size = Vector2(26, 201)
+size = Vector2(31, 201)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hwjaa"]
 size = Vector2(26, 147)
@@ -20,7 +24,7 @@ y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=213230691]
 z_index = -1
-texture = ExtResource("1_xm7mm")
+texture = ExtResource("1_inlfa")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=113115272]
 
@@ -31,6 +35,9 @@ polygon = PackedVector2Array(963, 96, 73, 98, 65, 256, -962, 260, -751, 403, 770
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="StaticBody2D" unique_id=1414376333]
 build_mode = 1
 polygon = PackedVector2Array(955, -79, 609, -83, 580, -100, 561, -185, 561, -214, 514, -230, 500, -209, 506, -108, 440, -82, 384, -74, 313, -69, 261, -50, 195, -40, 153, -45, 131, -21, 87, -14, 57, -35, 24, -40, -6, -30, -34, -11, -69, 8, -58, 60, -59, 121, -67, 157, -140, 166, -201, 168, -245, 165, -261, 111, -262, 70, -272, 18, -361, 18, -362, 82, -364, 116, -402, 121, -456, 121, -497, 129, -531, 131, -557, 145, -612, 155, -676, 149, -699, 82, -726, 57, -778, 66, -826, 113, -849, 149, -960, 173, -849, -368, 889, -357)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1595986240]
+shape = SubResource("SegmentShape2D_inlfa")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=109536309]
 
@@ -56,7 +63,7 @@ position = Vector2(950, 56)
 script = ExtResource("6_hwjaa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1832640508]
-position = Vector2(-3, -42.5)
+position = Vector2(-5.5, -42.5)
 shape = SubResource("RectangleShape2D_022lw")
 
 [node name="AvisoFlotante" parent="Area2D" unique_id=971796311 instance=ExtResource("6_ihg7f")]

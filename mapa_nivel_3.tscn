@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dker1ktmq4fel"]
 
-[ext_resource type="Texture2D" uid="uid://bislfrnilmkns" path="res://mapa_nivel3.png" id="1_xsvmw"]
+[ext_resource type="Texture2D" uid="uid://c5kc7ihopa1ch" path="res://mapa_nivel3_1.png" id="1_0vhwx"]
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="2_smrr2"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="3_1qvpl"]
 [ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="4_u0vi0"]
@@ -32,7 +32,7 @@ y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1864666549]
 z_index = -1
-texture = ExtResource("1_xsvmw")
+texture = ExtResource("1_0vhwx")
 
 [node name="LimitesMapa" type="StaticBody2D" parent="." unique_id=1062973655]
 

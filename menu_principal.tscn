@@ -92,6 +92,7 @@ theme_override_colors/font_color = Color(0.14016375, 0.20514065, 0.9780106, 1)
 text = "Con la tecla E interactúas con los personajes y objetos.
 Usa la tecla ESC para abrir el Menú de Pausa. 
 Desde ahí puedes salir, guardar tu progreso y ver los objetos que has conseguido.
+Manten apretado el Shift para que el personaje corra y asi ir mas rapido.
 
 Recuerda que el boton de configurar puedes cambiar las teclas con cual podras mover al personaje.
 

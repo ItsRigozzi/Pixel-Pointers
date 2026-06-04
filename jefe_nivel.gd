@@ -113,10 +113,10 @@ func ejecutar_dialogo():
 	# NUEVO: LÓGICA DEL NIVEL 3
 	# ==========================================
 	elif nivel_asignado == 3:
-		# ¡LA SOLUCIÓN! Revisar si ya ganaste el trofeo final en lugar de contar medallas
 		if Global.trofeo_final_obtenido == true:
 			if nodo_dialogo:
-				nodo_dialogo.mostrar_texto("con esto concluye tu gran aventura en el mundo de C... ¡Muchísimas gracias por jugar y navegar en este proyecto! Has demostrado ser un excelente jugador.")
+				# NUEVO: Si le vuelven a hablar, les recordamos el código
+				nodo_dialogo.mostrar_texto("Recuerda, tu código es: PIXEL-2026-PRO.\nPresiona ESC, sal del juego y envía tu archivo de datos.")
 			return 
 			
 		# Si aún no lo ganas, revisamos a los NPCs
@@ -181,11 +181,11 @@ func _al_aprobar_examen():
 			# 1. Congelamos al jugador
 			Global.bloqueado = true 
 			
-			# 2. Mostramos TODO el mensaje final de una sola vez
-			nodo_dialogo.mostrar_texto("¡Extraordinario! Has superado el desafío de la memoria dinámica. Toma esta última MEDALLA y el TROFEO FINAL.\n\nY con esto concluye tu gran aventura en el mundo de C... ¡Muchísimas gracias por jugar y navegar en este proyecto! Has demostrado ser un excelente jugador.")
+			# 2. NUEVO: Mostramos el mensaje final con el CÓDIGO SECRETO incluido
+			nodo_dialogo.mostrar_texto("¡Extraordinario! Has superado el desafío de la memoria dinámica.\n\nTU CÓDIGO PARA EL AULA VIRTUAL ES: PIXEL-2026-PRO\n\nPresiona ESC, dale a 'Salir del Juego' y envíale al profesor el archivo que aparecerá. ¡Gracias por jugar!")
 			
-			# 3. Esperamos 8 segundos (o los que tú quieras) para que lo lean obligatoriamente
-			await get_tree().create_timer(8.0).timeout 
+			# 3. Esperamos 10 segundos para asegurarnos de que anoten el código
+			await get_tree().create_timer(10.0).timeout 
 			
 			# 4. Cerramos la caja de diálogo automáticamente
 			nodo_dialogo.cerrar_dialogo()

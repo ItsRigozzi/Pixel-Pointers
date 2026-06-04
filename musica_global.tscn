@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cbv731rdprje6"]
+
+[ext_resource type="AudioStream" uid="uid://d5be0h5rcd7g" path="res://happy_adveture.mp3" id="1_vohvr"]
+
+[node name="MusicaGlobal" type="AudioStreamPlayer" unique_id=188719580]
+process_mode = 3
+stream = ExtResource("1_vohvr")
+volume_db = -29.25
+autoplay = true

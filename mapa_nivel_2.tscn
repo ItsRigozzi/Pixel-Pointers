@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dw3eu45b4tbel"]
 
-[ext_resource type="Texture2D" uid="uid://bklun7w2m5gc5" path="res://mapa_nivel2.png" id="1_ivl7w"]
 [ext_resource type="Script" uid="uid://c7vsdewa1f18c" path="res://mapa_nivel_2.gd" id="1_vvane"]
+[ext_resource type="Texture2D" uid="uid://m3ogk5clqva4" path="res://mapa_nivel2_1.png" id="2_ek2yr"]
 [ext_resource type="PackedScene" uid="uid://crvbtn4jkrd0i" path="res://jugador.tscn" id="3_qdy7l"]
 [ext_resource type="PackedScene" uid="uid://cjomla1ktf1rk" path="res://caja_dialogo.tscn" id="4_3pt0y"]
 [ext_resource type="PackedScene" uid="uid://bc1vhfwj7m033" path="res://pantalla_examen.tscn" id="5_rq4sy"]
@@ -32,17 +32,16 @@ size = Vector2(83, 22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l422g"]
 size = Vector2(106, 29.5)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5uv4b"]
-load_path = "res://.godot/imported/Claudio-Cubillos.png-0a05ba24d36f759c97a15e24d54dc334.ctex"
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5uv4b"]
 size = Vector2(30, 153)
 
 [node name="mapa_nivel2" type="Node2D" unique_id=1540481021]
+y_sort_enabled = true
 script = ExtResource("1_vvane")
 
 [node name="Fondo_Mapa" type="Sprite2D" parent="." unique_id=783461545]
-texture = ExtResource("1_ivl7w")
+z_index = -1
+texture = ExtResource("2_ek2yr")
 
 [node name="Colisiones" type="Node2D" parent="." unique_id=1797709542]
 
@@ -89,6 +88,7 @@ polygon = PackedVector2Array(23, 141, 95, 152, 133, 138, 175, 120, 185, 75, 186,
 polygon = PackedVector2Array(-491, 122, -466, 139, -436, 156, -423, 171, -410, 199, -410, 227, -412, 244, -431, 268, -453, 285, -483, 287, -502, 274, -519, 246, -526, 195, -524, 154)
 
 [node name="Jugador" parent="." unique_id=1748918919 instance=ExtResource("3_qdy7l")]
+y_sort_enabled = true
 position = Vector2(900, 195)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=539740997]
@@ -156,15 +156,6 @@ position = Vector2(79, -63)
 [node name="Pos_AfueraCasaAzul" type="Marker2D" parent="." unique_id=539069976]
 position = Vector2(-381, -23)
 
-[node name="JefeNivel" parent="." unique_id=312122346 instance=ExtResource("13_l422g")]
-position = Vector2(-620, 219)
-scale = Vector2(0.5, 0.5)
-nivel_asignado = 2
-
-[node name="Sprite2D" parent="JefeNivel" index="0" unique_id=896086212]
-texture = SubResource("CompressedTexture2D_5uv4b")
-frame = 8
-
 [node name="SalidaAutomaticaRutaK" type="Area2D" parent="." unique_id=1820271744]
 position = Vector2(-950, 36)
 script = ExtResource("14_5uv4b")
@@ -174,6 +165,7 @@ position = Vector2(5, 0.5)
 shape = SubResource("RectangleShape2D_5uv4b")
 
 [node name="Npc_silva" parent="." unique_id=1750436373 instance=ExtResource("15_ek2yr")]
+y_sort_enabled = true
 position = Vector2(-857, 32)
 scale = Vector2(0.55, 0.55)
 rol_npc = "guardia"
@@ -184,6 +176,10 @@ frame = 8
 [node name="Pos_Inicio_DesdeRutaK" type="Marker2D" parent="." unique_id=226123498]
 position = Vector2(-912, 51)
 
+[node name="JefeNivel" parent="." unique_id=312122346 instance=ExtResource("13_l422g")]
+position = Vector2(-600, 217)
+nivel_asignado = 2
+
 [connection signal="body_entered" from="EntradaHerreria" to="EntradaHerreria" method="_on_body_entered"]
 [connection signal="body_exited" from="EntradaHerreria" to="EntradaHerreria" method="_on_body_exited"]
 [connection signal="body_entered" from="EntradaCasaAzul" to="EntradaCasaAzul" method="_on_body_entered"]
@@ -192,5 +188,4 @@ position = Vector2(-912, 51)
 
 [editable path="PuertaFruteria"]
 [editable path="RegresoNivel1"]
-[editable path="JefeNivel"]
 [editable path="Npc_silva"]

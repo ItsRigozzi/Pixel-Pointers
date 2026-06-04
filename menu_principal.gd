@@ -43,8 +43,16 @@ func _on_boton_continuar_pressed():
 			get_tree().change_scene_to_file("res://mapa_nivel_3.tscn")
 
 func _on_boton_salir_pressed():
+	# Buscamos la ruta de la carpeta oculta
 	var ruta_absoluta = ProjectSettings.globalize_path("user://")
+	
+	# Le pedimos a Windows que la abra
 	OS.shell_open(ruta_absoluta)
+	
+	# Le decimos al juego que espere medio segundo
+	await get_tree().create_timer(0.5).timeout
+	
+	# Ahora sí, cerramos el juego
 	get_tree().quit()
 
 # ==========================================
