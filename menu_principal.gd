@@ -10,11 +10,9 @@ func _ready():
 	
 	Global.inicializar_log()
 	
-	# Asegurarnos de que los paneles empiecen ocultos
 	panel_como_jugar.hide()
 	panel_config.hide()
 	
-	# Aplicar los controles que estén guardados en Global
 	aplicar_controles(Global.controles)
 	
 	if FileAccess.file_exists(Global.RUTA_GUARDADO):
@@ -23,7 +21,6 @@ func _ready():
 		if boton_continuar:
 			boton_continuar.hide()
 
-# --- BOTONES DE JUGAR ---
 func _on_boton_iniciar_pressed():
 	get_tree().change_scene_to_file("res://intro_narrativa.tscn")
 
@@ -31,10 +28,8 @@ func _on_boton_continuar_pressed():
 	var carga_exitosa = Global.cargar_partida()
 	
 	if carga_exitosa:
-		# NUEVO: Le decimos al motor de Godot que active las teclas que acabamos de cargar
 		aplicar_controles(Global.controles) 
 		
-		# (El resto sigue igual)
 		if Global.insignias == 0:
 			get_tree().change_scene_to_file("res://pueblo_principal.tscn")
 		elif Global.insignias == 1:
@@ -43,55 +38,42 @@ func _on_boton_continuar_pressed():
 			get_tree().change_scene_to_file("res://mapa_nivel_3.tscn")
 
 func _on_boton_salir_pressed():
-	# Buscamos la ruta de la carpeta oculta
 	var ruta_absoluta = ProjectSettings.globalize_path("user://")
 	
-	# Le pedimos a Windows que la abra
 	OS.shell_open(ruta_absoluta)
 	
-	# Le decimos al juego que espere medio segundo
 	await get_tree().create_timer(0.5).timeout
 	
-	# Ahora sí, cerramos el juego
 	get_tree().quit()
 
-# ==========================================
-# NUEVAS FUNCIONES: PANELES Y CONFIGURACIÓN
-# ==========================================
-
-# 1. Mostrar Paneles
 func _on_boton_como_jugar_pressed():
 	panel_como_jugar.show()
 
 func _on_boton_config_pressed():
 	panel_config.show()
 
-# 2. Ocultar Paneles (Botones Volver)
 func _on_boton_volver_cj_pressed():
 	panel_como_jugar.hide()
 
 func _on_boton_volver_config_pressed():
 	panel_config.hide()
 
-# 3. Elección de Controles
 func _on_boton_wasd_pressed():
 	Global.controles = "wasd"
 	aplicar_controles("wasd")
-	panel_config.hide() # Opcional: Cierra el panel al elegir
+	panel_config.hide()
 
 func _on_boton_flechas_pressed():
 	Global.controles = "flechas"
 	aplicar_controles("flechas")
 	panel_config.hide()
 
-# 4. El "Motor" que reescribe las teclas permitidas
 func aplicar_controles(modo):
 	var arriba = InputEventKey.new()
 	var abajo = InputEventKey.new()
 	var izq = InputEventKey.new()
 	var der = InputEventKey.new()
 	
-	# Asignamos las teclas físicas dependiendo de la elección
 	if modo == "wasd":
 		arriba.physical_keycode = KEY_W
 		abajo.physical_keycode = KEY_S
@@ -103,7 +85,6 @@ func aplicar_controles(modo):
 		izq.physical_keycode = KEY_LEFT
 		der.physical_keycode = KEY_RIGHT
 	
-	# Borramos cualquier tecla anterior y asignamos las exclusivas
 	InputMap.action_erase_events("ui_up")
 	InputMap.action_add_event("ui_up", arriba)
 	

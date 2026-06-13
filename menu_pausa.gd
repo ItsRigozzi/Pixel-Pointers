@@ -7,7 +7,6 @@ extends CanvasLayer
 @onready var icono_llave = $PanelDerecho/IconoLlave
 @onready var icono_trofeo = $PanelDerecho/IconoTrofeo 
 
-# NUEVO: Referencia al trofeo final
 @onready var icono_trofeo_final = $PanelDerecho/IconoTrofeoFinal 
 
 func _ready():
@@ -46,11 +45,9 @@ func actualizar_medallas():
 	if Global.llave_casa_roja == true:
 		icono_llave.modulate = Color.WHITE 
 		
-	# Trofeo de Silva
 	if Global.trofeo_pucv_obtenido == true:
 		icono_trofeo.modulate = Color.WHITE
 		
-	# NUEVO: Trofeo Final del Jefe
 	if Global.trofeo_final_obtenido == true:
 		icono_trofeo_final.modulate = Color.WHITE
 
@@ -58,23 +55,17 @@ func _on_continuar_pressed():
 	reanudar_juego()
 
 func _on_guardar_partida_pressed():
-	# Llama a la función que acabamos de crear
 	Global.guardar_partida()
 	
-	# Opcional: Mostrarle al jugador que se guardó cambiando el texto temporalmente
 	$PanelDerecho/VBoxContainer/GuardarPartida.text = "¡Partida Guardada!"
 	await get_tree().create_timer(2.0).timeout
 	$PanelDerecho/VBoxContainer/GuardarPartida.text = "Guardar Partida"
 
 func _on_salir_del_juego_pressed():
-	# Buscamos la ruta de la carpeta oculta
 	var ruta_absoluta = ProjectSettings.globalize_path("user://")
 	
-	# Le pedimos a Windows que la abra
 	OS.shell_open(ruta_absoluta)
 	
-	# Le decimos al juego que espere medio segundo
 	await get_tree().create_timer(0.5).timeout
 	
-	# Cerramos el juego
 	get_tree().quit()

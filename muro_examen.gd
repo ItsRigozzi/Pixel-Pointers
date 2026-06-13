@@ -10,12 +10,10 @@ func _process(_delta):
 		var caja_dialogo = get_node_or_null("%CajaDialogo")
 		
 		if caja_dialogo:
-			# SOLO CAMBIAMOS ESTA LÍNEA:
 			caja_dialogo.mostrar_texto("Consigue la medalla de la zona para pasar al siguiente nivel.")
 		else:
 			print("Error: No encontré la CajaDialogo")
 			
-# Estas dos funciones las conectaremos ahora
 func _on_sensor_muro_body_entered(body):
 	if body.name == "Jugador":
 		jugador_cerca = true
@@ -26,7 +24,6 @@ func _on_sensor_muro_body_exited(body):
 		jugador_cerca = false
 		$AvisoFlotante.hide()
 		
-		# También usamos el % aquí para esconderla
 		var caja_dialogo = get_node_or_null("%CajaDialogo")
 		if caja_dialogo:
 			caja_dialogo.hide()

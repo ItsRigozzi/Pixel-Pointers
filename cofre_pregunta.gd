@@ -27,8 +27,6 @@ func abrir_cofre():
 			nodo_dialogo.mostrar_texto("El cofre está vacío. Ya tomaste lo que había dentro.")
 
 func _al_aprobar_examen():
-	# Eliminamos el "if jugador_cerca" para que la recompensa se registre
-	# aunque el jugador se haya alejado del cofre después de responder.
 	if Global.cofre_herreria_abierto == false:
 		Global.cofre_herreria_abierto = true 
 		
@@ -36,7 +34,6 @@ func _al_aprobar_examen():
 		if nodo_dialogo:
 			nodo_dialogo.mostrar_texto("¡Acertijo resuelto! Encontraste una nota con información útil.")
 
-# --- SENSORES DE CERCANÍA ---
 func _on_body_entered(body):
 	if body.name == "Jugador":
 		jugador_cerca = true

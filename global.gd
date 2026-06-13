@@ -1,45 +1,39 @@
 extends Node
 
-var controles = "wasd" # Por defecto empezarán con WASD
+var controles = "wasd"
 var errores_nivel_1 = 0
 var errores_nivel_2 = 0
 var errores_nivel_3 = 0
 var trofeo_final_obtenido = false
 var npc_traje_n3_respondido = false
-var silva_ruta_k_respondida = false # Recuerda si ya vencimos a Silva (ya sea por cura o trofeo)
+var silva_ruta_k_respondida = false
 var npc_nivel3_respondido = false
-var examen_seguro = false # Nuevo: para que la pregunta no quite vidas
-var trofeo_pucv_obtenido = false # Nuevo: para registrar tu premio perfecto
-var hitos_nivel_2_completados = 0 # Esta SÍ será permanente
-var bloqueado = false # Nuevo candado para detener al jugador
+var examen_seguro = false
+var trofeo_pucv_obtenido = false
+var hitos_nivel_2_completados = 0
+var bloqueado = false
 var recompensa_casa_roja_reclamada = false
 var tiempo_jugado: float = 0.0
 var cofre_herreria_abierto: bool = false
 var destino_puerta = ""
 var llave_casa_roja = false
-var rubia_dio_fruta_nivel = false # Nuevo: Prevención de abuso
+var rubia_dio_fruta_nivel = false 
 var nivel_1_aprobado = false
 @warning_ignore("unused_signal")
 signal examen_aprobado
 
-# --- VARIABLES DE MAPA ---
 var punto_aparicion = ""
 var posicion_jugador = Vector2.ZERO 
 var direccion_jugador = "abajo"     
 
-# --- ESTADÍSTICAS DEL JUGADOR ---
 var vidas_maximas = 3
 var vidas_actuales = 3
 var insignias = 0
-var nivel_actual = 1 # Para saber a dónde respawnear y qué preguntas usar
-var preguntas_respondidas_nivel = 0 # Para saber si ya llegó a 3/3
+var nivel_actual = 1
+var preguntas_respondidas_nivel = 0
 
-# --- VARIABLES PARA MEZCLAR PREGUNTAS ---
 var preguntas_disponibles = [] 
 
-# ==========================================
-# NIVEL 1: Conceptos Básicos y Operadores
-# ==========================================
 var preguntas_nivel_1 = [
 	{
 		"pregunta": "¿Qué guarda exactamente una variable de tipo puntero en C?",
@@ -133,9 +127,6 @@ var preguntas_nivel_1 = [
 	}
 ]
 
-# ==========================================
-# NIVEL 2: Punteros Dobles y Estructuras
-# ==========================================
 var preguntas_nivel_2 = [
 	{
 		"pregunta": "Completa la sintaxis:\n\nint num = 40;\nint *ptr = &num;\n____ pptr = &ptr;",
@@ -229,9 +220,6 @@ var preguntas_nivel_2 = [
 	}
 ]
 
-# ==========================================
-# NIVEL 3: Debugging y Lógica Compleja
-# ==========================================
 var preguntas_nivel_3 = [
 	{
 		"pregunta": "Identifica el error que causará un Segmentation Fault inmediato:",
@@ -344,49 +332,37 @@ func preparar_preguntas_nivel(nivel):
 	preguntas_respondidas_nivel = 0
 
 func aplicar_game_over():
-	# 1. Curamos al jugador y reiniciamos el contador de ese nivel
 	vidas_actuales = vidas_maximas
 	InterfazVidas.actualizar_vidas()
 	preguntas_respondidas_nivel = 0
 	
-	# 2. Barajamos las preguntas del nivel en el que murió
 	preparar_preguntas_nivel(nivel_actual)
 	
-	# ==========================================
-	# 3. RESET DE MEMORIAS (SISTEMA DE CHECKPOINTS)
-	# ==========================================
 	if nivel_actual == 1:
-		# En el Nivel 1 no hay memorias permanentes de NPCs que limpiar por ahora
 		get_tree().change_scene_to_file("res://pueblo_principal.tscn")
 		
 	elif nivel_actual == 2:
-		# Si muere en el Nivel 2, Silva olvida que le respondiste
 		silva_ruta_k_respondida = false
 		get_tree().change_scene_to_file("res://mapa_nivel_2.tscn")
 		
 	elif nivel_actual == 3:
-		# Si muere en el Nivel 3, Mellado y el chico del traje olvidan que les respondiste
 		npc_nivel3_respondido = false
 		npc_traje_n3_respondido = false
 		get_tree().change_scene_to_file("res://mapa_nivel_3.tscn")
 
 func curar_vida(cantidad):
-	# Si el jugador ya está al máximo de vida, le damos un contenedor extra
 	if vidas_actuales == vidas_maximas:
 		vidas_maximas += cantidad
 		vidas_actuales = vidas_maximas
 	else:
-		# Si está herido, solo lo curamos hasta el máximo actual
 		vidas_actuales += cantidad
 		if vidas_actuales > vidas_maximas:
 			vidas_actuales = vidas_maximas
 			
 	InterfazVidas.actualizar_vidas()
-# --- SISTEMA DE GUARDADO ---
 const RUTA_GUARDADO = "user://partida.save"
 
 func guardar_partida():
-	# Diccionario ACTUALIZADO con todos los eventos del juego
 	var datos = {
 		"insignias": insignias,
 		"tiempo_jugado": tiempo_jugado,
@@ -401,7 +377,6 @@ func guardar_partida():
 		"npc_nivel3_respondido": npc_nivel3_respondido,
 		"npc_traje_n3_respondido": npc_traje_n3_respondido,
 		
-		# --- EVENTOS Y OBJETOS NUEVOS AÑADIDOS ---
 		"silva_ruta_k_respondida": silva_ruta_k_respondida,
 		"hitos_nivel_2_completados": hitos_nivel_2_completados,
 		"recompensa_casa_roja_reclamada": recompensa_casa_roja_reclamada,
@@ -439,7 +414,6 @@ func cargar_partida():
 			npc_nivel3_respondido = datos.get("npc_nivel3_respondido", false)
 			npc_traje_n3_respondido = datos.get("npc_traje_n3_respondido", false)
 			
-			# --- CARGAMOS LOS EVENTOS Y OBJETOS NUEVOS ---
 			silva_ruta_k_respondida = datos.get("silva_ruta_k_respondida", false)
 			hitos_nivel_2_completados = datos.get("hitos_nivel_2_completados", 0)
 			recompensa_casa_roja_reclamada = datos.get("recompensa_casa_roja_reclamada", false)
@@ -455,14 +429,10 @@ func cargar_partida():
 	
 	print("No hay partida guardada.")
 	return false
-# ==========================================
-# SISTEMA DE REGISTRO DE DATOS (LOGS)
-# ==========================================
 const RUTA_LOG = "user://pixel_pointers_log.csv"
-var id_jugador_actual = "jugador_anonimo" # Idealmente, esto se pediría al inicio
+var id_jugador_actual = "jugador_anonimo"
 
 func inicializar_log():
-	# Si el archivo NO existe, lo creamos y le ponemos la cabecera (los títulos de las columnas)
 	if not FileAccess.file_exists(RUTA_LOG):
 		var archivo = FileAccess.open(RUTA_LOG, FileAccess.WRITE)
 		var cabecera = "timestamp,idJugador,nivel,pregunta,alternativas,respuestaJugador,siFueCorrectaoNo,tiempoDeRespuesta\n"
@@ -471,24 +441,19 @@ func inicializar_log():
 		print("Archivo Log creado exitosamente.")
 
 func registrar_interaccion(pregunta, alternativas_str, respuesta_jugador, fue_correcta, tiempo_segundos):
-	# Obtenemos la fecha y hora exacta del sistema operativo
 	var tiempo = Time.get_datetime_dict_from_system()
 	var timestamp = str(tiempo.year) + "-" + str(tiempo.month).pad_zeros(2) + "-" + str(tiempo.day).pad_zeros(2) + " " + str(tiempo.hour).pad_zeros(2) + ":" + str(tiempo.minute).pad_zeros(2) + ":" + str(tiempo.second).pad_zeros(2)
 	
-	# Convertimos el booleano (true/false) a texto (1/0 o texto claro)
 	var correcta_str = "1" if fue_correcta else "0"
 	
-	# Construimos la línea que se añadirá al Excel (separada por comas)
-	# Limpiamos las comas internas de los textos para que no rompan el formato CSV
 	var pregunta_limpia = pregunta.replace(",", ";") 
 	var alternativas_limpias = alternativas_str.replace(",", ";")
 	var respuesta_limpia = respuesta_jugador.replace(",", ";")
 	
 	var nueva_linea = timestamp + "," + id_jugador_actual + "," + str(nivel_actual) + "," + pregunta_limpia + "," + alternativas_limpias + "," + respuesta_limpia + "," + correcta_str + "," + str(tiempo_segundos) + "\n"
 	
-	# Abrimos el archivo en modo READ_WRITE (para no borrar lo anterior) y escribimos al final
 	var archivo = FileAccess.open(RUTA_LOG, FileAccess.READ_WRITE)
-	archivo.seek(archivo.get_length()) # Movemos el "cursor" al final del documento
+	archivo.seek(archivo.get_length())
 	archivo.store_string(nueva_linea)
 	archivo.close()
 	print("Interacción registrada en el log.")

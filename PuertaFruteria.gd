@@ -7,7 +7,6 @@ func _ready():
 		$AvisoFlotante.hide()
 
 func _process(_delta):
-	# Si presiona la E, viajamos adentro de la frutería
 	if jugador_cerca and Input.is_action_just_pressed("interactuar"):
 		get_tree().change_scene_to_file("res://interior_fruteria.tscn")
 

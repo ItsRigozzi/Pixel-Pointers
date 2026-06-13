@@ -26,11 +26,9 @@ func lanzar_dialogo_y_curar():
 		else:
 			nodo_dialogo.mostrar_texto("¡Te ves muy fuerte! Pero una fruta extra nunca hace daño. ¡Toma!")
 		
-		# Aumentar la CAPACIDAD máxima y dar la vida
 		Global.vidas_maximas += 1
 		Global.vidas_actuales += 1
 		
-		# Seguro para no exceder límites
 		if Global.vidas_maximas > 5:
 			Global.vidas_maximas = 5
 		if Global.vidas_actuales > 5:
@@ -41,7 +39,6 @@ func lanzar_dialogo_y_curar():
 	else:
 		nodo_dialogo.mostrar_texto("Espero que la fruta te haya gustado. ¡Vuelve mañana!")
 
-# --- SEÑALES DEL SENSOR ---
 func _on_area_sensor_body_entered(body):
 	if body.name == "Jugador":
 		jugador_cerca = true

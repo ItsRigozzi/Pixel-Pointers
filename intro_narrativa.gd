@@ -1,10 +1,8 @@
 extends Control
 
 func _ready():
-	# Nos aseguramos de que sigan apagados en la pantalla negra
 	InterfazVidas.hide()
 	
-	# Espera 4 segundos y cambia al mapa principal
 	await get_tree().create_timer(4.0).timeout
 	ir_al_mapa()
 

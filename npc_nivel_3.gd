@@ -5,7 +5,6 @@ var ya_respondio = false
 var jugador_nodo = null 
 var fase_dialogo = 0 
 
-# NUEVO: El NPC usará esta variable para recordar que te hizo una pregunta
 var esperando_resultado = false 
 
 @onready var aviso_e = find_child("AvisoFlotante")
@@ -30,13 +29,13 @@ func girar_hacia_jugador():
 	var angulo = rad_to_deg(direccion.angle())
 	
 	if angulo >= -45 and angulo <= 45:
-		sprite.frame = 8 # Derecha
+		sprite.frame = 8
 	elif angulo > 45 and angulo <= 135:
-		sprite.frame = 0 # Abajo
+		sprite.frame = 0
 	elif angulo < -45 and angulo >= -135:
-		sprite.frame = 12 # Arriba
+		sprite.frame = 12 
 	else:
-		sprite.frame = 4 # Izquierda
+		sprite.frame = 4
 
 func hablar():
 	if aviso_e: aviso_e.hide()
@@ -57,14 +56,12 @@ func hablar():
 		
 	if fase_dialogo == 1:
 		if pantalla_examen:
-			# NUEVO: Le decimos al NPC que se quede esperando tu respuesta
 			esperando_resultado = true 
 			pantalla_examen.iniciar_examen_para_nivel(3)
 
 func _al_aprobar_examen():
-	# NUEVO: En lugar de "jugador_cerca", verificamos si ESTE NPC te hizo la pregunta
 	if esperando_resultado == true:
-		esperando_resultado = false # Apagamos la espera
+		esperando_resultado = false
 		ya_respondio = true
 		fase_dialogo = 2 
 		Global.npc_nivel3_respondido = true

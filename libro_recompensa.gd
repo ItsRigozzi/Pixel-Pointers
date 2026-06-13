@@ -14,15 +14,12 @@ func dar_recompensa():
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 	
 	if Global.recompensa_casa_roja_reclamada == false:
-		# 1. Aumentamos solo el MÁXIMO, no la vida actual
 		Global.vidas_maximas += 1
 		Global.recompensa_casa_roja_reclamada = true
 		
-		# 2. Obligamos a la interfaz a redibujar los corazones
 		if InterfazVidas:
 			InterfazVidas.actualizar_vidas()
 		
-		# 3. Mensaje
 		if nodo_dialogo:
 			nodo_dialogo.mostrar_texto("¡Has leído un manual avanzado! Tu salud máxima ha aumentado a " + str(Global.vidas_maximas) + ", pero necesitas encontrar comida para llenarlo.")
 	else:
@@ -39,7 +36,6 @@ func _on_body_exited(body):
 		jugador_cerca = false
 		if aviso_e: aviso_e.hide()
 		
-		# Limpio y usando la función centralizada
 		var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 		if nodo_dialogo:
 			nodo_dialogo.cerrar_dialogo()

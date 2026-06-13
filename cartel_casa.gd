@@ -27,4 +27,4 @@ func _process(_delta):
 			if caja.visible:
 				caja.hide()
 			else:
-				caja.mostrar_texto("¡Hola! Esta es la casa azul.") # O tu variable mensajee
+				caja.mostrar_texto("¡Hola! Esta es la casa azul.")

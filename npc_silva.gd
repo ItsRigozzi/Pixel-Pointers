@@ -14,7 +14,6 @@ func _ready():
 	if rol_npc == "guardia" and Global.insignias >= 2:
 		queue_free()
 		
-	# NUEVO: Si es la profesora de examen y ya la vencimos, bloqueamos el diálogo
 	if rol_npc == "examen" and Global.silva_ruta_k_respondida == true:
 		fase_dialogo = 2
 
@@ -28,9 +27,6 @@ func interactuar():
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 	var pantalla_examen = get_tree().current_scene.get_node_or_null("CapaInterfaz/PantallaExamen")
 
-	# ==========================================
-	# LÓGICA 1: SILVA COMO GUARDIA
-	# ==========================================
 	if rol_npc == "guardia":
 		if Global.insignias < 2:
 			if nodo_dialogo:
@@ -43,11 +39,7 @@ func interactuar():
 			if nodo_dialogo: nodo_dialogo.cerrar_dialogo()
 			queue_free() 
 
-	# ==========================================
-	# LÓGICA 2: SILVA COMO EXAMEN
-	# ==========================================
 	elif rol_npc == "examen":
-		# Si ya respondimos o ya tenemos el trofeo
 		if fase_dialogo == 2 or Global.trofeo_pucv_obtenido == true:
 			if nodo_dialogo:
 				nodo_dialogo.mostrar_texto("¡Sigue tu camino! El nuevo edificio de la PUCV quedará increíble.")
@@ -71,7 +63,6 @@ func _al_aprobar_examen():
 	Global.examen_seguro = false 
 	fase_dialogo = 2
 	
-	# NUEVO: Guardamos en el Global que ya le respondimos (sea cual sea el premio)
 	Global.silva_ruta_k_respondida = true 
 
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
@@ -90,7 +81,6 @@ func _al_aprobar_examen():
 		if nodo_dialogo:
 			nodo_dialogo.mostrar_texto("¡Correcto! Has demostrado una excelencia impecable en tu viaje. ¡Toma este TROFEO!")
 
-# --- SENSORES ---
 func _on_area_sensor_body_entered(body):
 	if body.name == "Jugador":
 		jugador_cerca = true

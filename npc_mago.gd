@@ -62,7 +62,6 @@ func girar_npc(direccion):
 		pantalla_examen.iniciar_examen_para_nivel(2)
 
 func _al_aprobar_examen():
-	# Eliminado "if not jugador_cerca" para que la entrega sea garantizada
 	if Global.llave_casa_roja == false:
 		Global.llave_casa_roja = true
 		
@@ -73,7 +72,6 @@ func _al_aprobar_examen():
 		if nodo_dialogo:
 			nodo_dialogo.mostrar_texto("Tienes una mente afilada. Toma esta LLAVE. Quizás te sirva en el pueblo anterior.")
 
-# --- SEÑALES DEL SENSOR ---
 func _on_area_sensor_body_entered(body):
 	if body.name == "Jugador":
 		jugador_cerca = true

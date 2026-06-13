@@ -4,7 +4,7 @@ extends StaticBody2D
 
 var jugador_cerca = false
 var ya_se_presento = false
-var esperando_examen = false # NUEVO: Candado de seguridad para la prueba
+var esperando_examen = false 
 
 @onready var aviso_e = find_child("AvisoFlotante")
 
@@ -14,7 +14,6 @@ func _ready():
 		
 	Global.examen_aprobado.connect(_al_aprobar_examen)
 	
-	# Destrucción si el nivel ya fue superado
 	if nivel_asignado == 1:
 		if Global.nivel_1_aprobado == true or Global.preguntas_respondidas_nivel >= 3:
 			queue_free()
@@ -23,7 +22,6 @@ func _ready():
 		if Global.insignias >= 2:
 			queue_free()
 			
-	# NUEVO: Si volvemos al Nivel 3 y ya ganamos la tercera medalla
 	elif nivel_asignado == 3:
 		if Global.insignias >= 3:
 			queue_free()
@@ -67,9 +65,6 @@ func ejecutar_dialogo():
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 	var pantalla_examen = get_tree().current_scene.get_node_or_null("CapaInterfaz/PantallaExamen")
 	
-	# ==========================================
-	# LÓGICA DEL NIVEL 1
-	# ==========================================
 	if nivel_asignado == 1:
 		if Global.preguntas_respondidas_nivel < 2:
 			if nodo_dialogo:
@@ -79,9 +74,6 @@ func ejecutar_dialogo():
 				esperando_examen = true
 				pantalla_examen.iniciar_examen()
 				
-	# ==========================================
-	# LÓGICA DEL NIVEL 2
-	# ==========================================
 	elif nivel_asignado == 2:
 		var aciertos_reales = 0
 		if Global.llave_casa_roja == true: 
@@ -109,17 +101,12 @@ func ejecutar_dialogo():
 					esperando_examen = true
 					pantalla_examen.iniciar_examen_para_nivel(2)
 
-	# ==========================================
-	# NUEVO: LÓGICA DEL NIVEL 3
-	# ==========================================
 	elif nivel_asignado == 3:
 		if Global.trofeo_final_obtenido == true:
 			if nodo_dialogo:
-				# NUEVO: Si le vuelven a hablar, les recordamos el código
 				nodo_dialogo.mostrar_texto("Recuerda, tu código es: PIXEL-2026-PRO.\nPresiona ESC, sal del juego y envía tu archivo de datos.")
 			return 
 			
-		# Si aún no lo ganas, revisamos a los NPCs
 		if Global.npc_nivel3_respondido == true and Global.npc_traje_n3_respondido == true:
 			if ya_se_presento == false:
 				if nodo_dialogo:
@@ -130,7 +117,6 @@ func ejecutar_dialogo():
 					esperando_examen = true
 					pantalla_examen.iniciar_examen_para_nivel(3)
 		else:
-			# Si te falta alguno de los dos
 			if nodo_dialogo:
 				nodo_dialogo.mostrar_texto("Aún no estás listo. Vuelve cuando hayas respondido a las preguntas dentro de los dos edificios.")
 			return
@@ -138,9 +124,6 @@ func ejecutar_dialogo():
 func _al_aprobar_examen():
 	var nodo_dialogo = get_tree().current_scene.get_node_or_null("CapaInterfaz/CajaDialogo")
 
-	# ==========================================
-	# VICTORIA NIVEL 1
-	# ==========================================
 	if nivel_asignado == 1 and esperando_examen == true:
 		esperando_examen = false
 		Global.insignias += 1
@@ -153,9 +136,6 @@ func _al_aprobar_examen():
 		await get_tree().create_timer(4.0).timeout
 		queue_free()
 
-	# ==========================================
-	# VICTORIA NIVEL 2
-	# ==========================================
 	elif nivel_asignado == 2 and esperando_examen == true:
 		esperando_examen = false
 		Global.insignias += 1
@@ -165,9 +145,6 @@ func _al_aprobar_examen():
 		if nodo_dialogo:
 			nodo_dialogo.mostrar_texto("¡Impresionante! Has demostrado ser digno. Toma esta MEDALLA, he mandado a despejar el bloqueo del camino.")
 
-	# ==========================================
-	# VICTORIA NIVEL 3 (GRAN FINAL)
-	# ==========================================
 	elif nivel_asignado == 3 and esperando_examen == true:
 		esperando_examen = false
 		Global.insignias += 1
@@ -178,22 +155,16 @@ func _al_aprobar_examen():
 			AnimacionMedalla.mostrar_recompensa(medalla_img, "¡MEDALLA Y TROFEO OBTENIDOS!")
 			
 		if nodo_dialogo:
-			# 1. Congelamos al jugador
 			Global.bloqueado = true 
 			
-			# 2. NUEVO: Mostramos el mensaje final con el CÓDIGO SECRETO incluido
 			nodo_dialogo.mostrar_texto("¡Extraordinario! Has superado el desafío de la memoria dinámica.\n\nTU CÓDIGO PARA EL AULA VIRTUAL ES: PIXEL-2026-PRO\n\nPresiona ESC, dale a 'Salir del Juego' y envíale al profesor el archivo que aparecerá. ¡Gracias por jugar!")
 			
-			# 3. Esperamos 10 segundos para asegurarnos de que anoten el código
 			await get_tree().create_timer(10.0).timeout 
 			
-			# 4. Cerramos la caja de diálogo automáticamente
 			nodo_dialogo.cerrar_dialogo()
 			
-			# 5. Le devolvemos el control al jugador
 			Global.bloqueado = false
 
-# --- SENSORES ---
 func _on_area_sensor_body_entered(body):
 	if body.name == "Jugador":
 		jugador_cerca = true
