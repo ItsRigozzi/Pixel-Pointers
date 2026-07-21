@@ -53,3 +53,9 @@ El repositorio incluye todos los *assets*, *scripts* y *escenas* (.tscn) necesar
 <div align="center">
   <i>Aprende jugando con Pixel Pointers. 🎓👾</i>
 </div>
+
+## 👥 Equipo de Desarrollo
+
+- **Rigoberto Canales**
+- **Patricio Hernandez**
+- **Benjamín Pizarro**
